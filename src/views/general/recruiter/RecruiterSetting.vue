@@ -436,7 +436,6 @@
                     url: "/users/getInfo/" + JSON.parse(window.sessionStorage.getItem('user')).id,
                     method: "get"
                 })
-              console.log("####")
                 console.log(res)
                 if (res.message == "success") {
                     // res.data.recruiterForm.recruiter_avatar = require("@/image/avatar/" + res.data.recruiterForm.recruiter_avatar);
