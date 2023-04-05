@@ -42,7 +42,7 @@
         },
         data() {
             return {
-                applicant_id: "",
+                applicant_id: 1,
                 menuList: [
                     { icon: "el-icon-gerenzhongxin", name: "个人中心", href: "/applicant"},
                     { icon: "el-icon-jianli", name: "我的简历", href: "/applicant/resume"},
@@ -58,7 +58,7 @@
         methods: {
             async getApplicantId() {
                 const res = await this.$axios.request({
-                    url: `/applicant/getId/${this.$store.state.login_id}`,
+                    url: `/applicant/getId/`+JSON.parse(window.sessionStorage.getItem('user')).id,
                     method: "get",
                 });
                 console.log(res);

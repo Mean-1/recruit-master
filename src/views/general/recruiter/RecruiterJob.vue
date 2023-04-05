@@ -17,24 +17,24 @@
         <div class="main-content">
           <div class="job">
             <div class="filter-select">
-              <div class="filter-job-industry">
-                <ul v-if="Object.keys(this.industryList).length !== 0">
-                  <li v-for="(industry,index) in filterIndustry"
-                      :key="industry.job_industry + index"
-                      :class="{'is-selected': currentIndustry === industry.job_industry}"
-                      @click="industrySelect(industry.job_industry)">
-                    <span class="job-industry">{{ industry.job_industry }}</span>
-                    <span class="job-num">{{ industry.job_num }}</span>
-                  </li>
-                </ul>
-                <el-input
-                      class="search-input"
-                      placeholder="搜索职位名称、地点"
-                      prefix-icon="el-icon-search"
-                      v-model="searchKey"
-                      @change="search">
-                </el-input>
-              </div>
+<!--              <div class="filter-job-industry">-->
+<!--                <ul v-if="Object.keys(this.industryList).length !== 0">-->
+<!--                  <li v-for="(industry,index) in filterIndustry"-->
+<!--                      :key="industry.job_industry + index"-->
+<!--                      :class="{'is-selected': currentIndustry === industry.job_industry}"-->
+<!--                      @click="industrySelect(industry.job_industry)">-->
+<!--                    <span class="job-industry">{{ industry.job_industry }}</span>-->
+<!--                    <span class="job-num">{{ industry.job_num }}</span>-->
+<!--                  </li>-->
+<!--                </ul>-->
+<!--                <el-input-->
+<!--                      class="search-input"-->
+<!--                      placeholder="搜索职位名称、地点"-->
+<!--                      prefix-icon="el-icon-search"-->
+<!--                      v-model="searchKey"-->
+<!--                      @change="search">-->
+<!--                </el-input>-->
+<!--              </div>-->
               <div class="filter-condition">
                 <div class="condition-wrapper">
                   <span>职位状态：</span>
@@ -101,7 +101,7 @@
                 </el-table-column>
                 <el-table-column
                       prop="job_industry"
-                      label="行业类型">
+                      label="职位标签">
                 </el-table-column>
                 <el-table-column
                       label="工作地点">
@@ -204,86 +204,88 @@
                 currentStatus: Constant.JOB_ADDED,
                 conditionDate: ["不限","今天","3天内","1周内","1个月内","3个月内","半年内","半年以上"],
                 currentDate: "不限",
-                jobList: [],
-                /*jobList: [
+
+                // jobList: [],
+                jobList: [
                     {
+                        job_id:"",
                         job_duty: "Web前端开发工程师",
                         job_year: "1-3年",
                         education: "本科",
-                        job_type: "全职",
+                        // job_type: "全职",
                         job_salary: "10-20K·13薪",
                         job_industry: "技术",
                         office_city: "深圳",
-                        office_district: "福田",
+                        // office_district: "福田",
                         job_status: "0"
                     },
-                    {
-                        job_duty: "前端工程师",
-                        job_year: "1年以上",
-                        education: "本科",
-                        job_type: "全职",
-                        job_salary: "10-15K",
-                        job_industry: "技术",
-                        office_city: "深圳",
-                        office_district: "南山",
-                        job_status: "0"
-                    },
-                    {
-                        job_duty: "产品经理",
-                        job_year: "3-5年",
-                        education: "本科",
-                        job_type: "全职",
-                        job_salary: "20-30K",
-                        job_industry: "产品",
-                        office_city: "深圳",
-                        office_district: "福田",
-                        job_status: "0"
-                    },
-                    {
-                        job_duty: "游戏ui设计师",
-                        job_year: "3-5年",
-                        education: "本科",
-                        job_type: "全职",
-                        job_salary: "15-30K",
-                        job_industry: "设计",
-                        office_city: "深圳",
-                        office_district: "宝安",
-                        job_status: "0"
-                    },
-                    {
-                        job_duty: "抖音游戏产品经理（创作者方向）",
-                        job_year: "1-3年",
-                        education: "本科",
-                        job_type: "全职",
-                        job_salary: "15-30K",
-                        job_industry: "产品",
-                        office_city: "深圳",
-                        office_district: "南山",
-                        job_status: "1"
-                    },
-                    {
-                        job_duty: "内容运营",
-                        job_year: "1-3年",
-                        education: "本科",
-                        job_type: "全职",
-                        job_salary: "20-40K·15薪",
-                        job_industry: "技术",
-                        office_city: "深圳",
-                        office_district: "龙岗",
-                        job_status: "1"
-                    },
-                    {
-                        job_duty: "游戏开发工程师",
-                        job_year: "1-3年",
-                        education: "本科",
-                        job_type: "全职",
-                        job_salary: "20-40K·16薪",
-                        job_industry: "技术",
-                        office_city: "广州",
-                        office_district: "天河",
-                        job_status: "2"
-                    },
-                ],*/
+                    // {
+                    //     job_duty: "前端工程师",
+                    //     job_year: "1年以上",
+                    //     education: "本科",
+                    //     job_type: "全职",
+                    //     job_salary: "10-15K",
+                    //     job_industry: "技术",
+                    //     office_city: "深圳",
+                    //     office_district: "南山",
+                    //     job_status: "0"
+                    // },
+                    // {
+                    //     job_duty: "产品经理",
+                    //     job_year: "3-5年",
+                    //     education: "本科",
+                    //     job_type: "全职",
+                    //     job_salary: "20-30K",
+                    //     job_industry: "产品",
+                    //     office_city: "深圳",
+                    //     office_district: "福田",
+                    //     job_status: "0"
+                    // },
+                    // {
+                    //     job_duty: "游戏ui设计师",
+                    //     job_year: "3-5年",
+                    //     education: "本科",
+                    //     job_type: "全职",
+                    //     job_salary: "15-30K",
+                    //     job_industry: "设计",
+                    //     office_city: "深圳",
+                    //     office_district: "宝安",
+                    //     job_status: "0"
+                    // },
+                    // {
+                    //     job_duty: "抖音游戏产品经理（创作者方向）",
+                    //     job_year: "1-3年",
+                    //     education: "本科",
+                    //     job_type: "全职",
+                    //     job_salary: "15-30K",
+                    //     job_industry: "产品",
+                    //     office_city: "深圳",
+                    //     office_district: "南山",
+                    //     job_status: "1"
+                    // },
+                    // {
+                    //     job_duty: "内容运营",
+                    //     job_year: "1-3年",
+                    //     education: "本科",
+                    //     job_type: "全职",
+                    //     job_salary: "20-40K·15薪",
+                    //     job_industry: "技术",
+                    //     office_city: "深圳",
+                    //     office_district: "龙岗",
+                    //     job_status: "1"
+                    // },
+                    // {
+                    //     job_duty: "游戏开发工程师",
+                    //     job_year: "1-3年",
+                    //     education: "本科",
+                    //     job_type: "全职",
+                    //     job_salary: "20-40K·16薪",
+                    //     job_industry: "技术",
+                    //     office_city: "广州",
+                    //     office_district: "天河",
+                    //     job_status: "2"
+                    // },
+                ],
                 // 保存选中的职位ID列表
                 selectedJobIds: [],
                 // 预览的职位ID保存,
@@ -351,36 +353,54 @@
                 }
             },
             async getJobList() {
-                const res = await this.$axios.request({
-                    url: `/job/jobManagePage`,
+
+
+              const res = await this.$axios.request({
+                    url: `/job/getJobByRecruiterId`,
                     method: "get",
                     params: {
                         currentPage: this.currentPage,
                         pageSize: this.pageSize,
-                        login_id: this.$store.state.login_id,
-                        job_status: this.conditionStatus.indexOf(this.currentStatus).toString(),
-                        job_industry: this.currentIndustry !== "全部" ? this.currentIndustry : "",
+                        uid: JSON.parse(window.sessionStorage.getItem('user')).id,
+                        status: this.conditionStatus.indexOf(this.currentStatus).toString(),
+                        // job_industry: this.currentIndustry !== "全部" ? this.currentIndustry : "",
                         condition: this.currentDate
                     }
                 })
                 console.log(res);
-                if(res.msg === "success") {
+                // if(res.msg === "success") {
+                res.data.forEach(item=>{
+                  item.job_id = item.id;
+                  item.job_duty = item.name;
+                  item.job_year = item.experience;
+                  item.education = item.qualification;
+                  item.job_salary = item.salary;
+                  item.office_city = item.company.address;
+                  item.job_industry = item.tag;
+                  item.job_status = item.status;
+              });
                     this.total = res.data.total;
-                    this.jobList = Object.assign([],[],res.data.jobList);
-                }
+                    this.jobList = Object.assign([],[],res.data);
+                // }
             },
             // 职位状态更新，批量更新（单个也传递数组形式）
             async updateStatus(idArray, job_status) {
+              // console.log("####")
+              // console.log(JSON.stringify(idArray))
+              // console.log(typeof idArray)
                 const res = await this.$axios.request({
-                    url: `/job/updateStatus`,
+                    url: "/job/updateStatus",
                     method: "post",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
                     data: {
-                        idArray: idArray,
-                        job_status: job_status
+                      selectedJobIds: idArray,
+                      status: job_status
                     }
                 })
                 console.log(res);
-                if(res.msg === "success") {
+                if(res.message == "success") {
                     if(job_status === "0") {
                         this.$message.success("职位已成功上线！");
                     } else if(job_status === "2") {
@@ -393,15 +413,17 @@
             },
             // 批量删除职位（单个也传递数组形式）
             async deleteJobList(idArray) {
+              console.log(idArray)
                 const res = await this.$axios.request({
-                    url: `/job/delete`,
+                    url: `/job/deleteJobByIds`,
                     method: "delete",
                     data: {
-                        idArray: idArray,
+                      selectedJobIds: idArray,
+                        // status: 0  //这个参数没用，只是为了符合后端对象的传参格式
                     }
                 })
                 console.log(res);
-                if(res.msg === "success") {
+                if(res.message == "success") {
                     this.$message.success("职位删除成功!");
                     await this.getJobList();
                 }else {
@@ -422,12 +444,13 @@
             },
             // 职位状态选中
             changeStatus(value) {
-                this.currentStatus = value;
+              //value.option才是选中的值
+                this.currentStatus = value.option;
                 this.getJobList();
             },
             // 职位发布时间选中
             changeDate(value) {
-                this.currentDate = value;
+                this.currentDate = value.option;
                 this.getJobList();
             },
             // 表格每次选中回调

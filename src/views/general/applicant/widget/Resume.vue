@@ -65,14 +65,15 @@
         },
         methods: {
             async getResumeId() {
-                const res = await this.$axios.request({
-                    url: `/resume/getId/${this.applicant_id}`,
-                    method: "get",
-                });
-                console.log(res);
-                if(res.msg === "success") {
-                    this.resume_id = res.data.resume_id;
-                }
+                // const res = await this.$axios.request({
+                //     url: `/resume/getId/${this.applicant_id}`,
+                //     method: "get",
+                // });
+                // console.log(res);
+                // if(res.msg === "success") {
+                //     this.resume_id = res.data.resume_id;
+                // }
+              this.resume_id = this.applicant_id;
             }
         },
     }

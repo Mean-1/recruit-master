@@ -213,8 +213,10 @@
                 currentJob: "不限",
                 conditionDate: ["不限","今天","2天内","3天内","1周内","2周内","1个月内","3个月内","半年内","半年以上"],
                 currentDate: "不限",
-                applyList: [],
-                /*applyList: [
+                //传入后端的时间参数
+                date:"",
+                // applyList: [],
+                applyList: [
                     {
                         applicant_avatar: require("@/image/avatar/applicant_zhang.png"),
                         applicant_name: "张三",
@@ -267,7 +269,7 @@
                         job_duty: "内容运营",
                         create_date: "2022-3-24 16:30",
                     },
-                ],*/
+                ],
 
                 secondLabel: Constant.HEADER_TABLE_IDENTITY,
                 secondHeader: [Constant.HEADER_TABLE_IDENTITY, Constant.HEADER_TABLE_MAJOR],

@@ -144,11 +144,12 @@ export default {
               this.$router.push("/login");
           },
           reloadStatus() {
+            // //更新完后刷新页面
+            // window.location.reload(false);
               this.$router.push("/home");
               this.$store.commit('removeLogin');
               this.$store.commit('setLogin');
-              //更新完后刷新页面
-              window.location.reload(false);
+
           }
       }
   }

@@ -29,15 +29,15 @@
                                    :max="24"></el-input-number>
                   薪
                 </el-form-item>
-                <el-form-item class="left-form-item" label="所属行业" prop="job_industry">
-                  <el-select v-model="jobForm.job_industry" placeholder="请选择行业类型">
-                    <el-option v-for="item in industryList"
-                               :key="item"
-                               :label="item"
-                               :value="item">
-                    </el-option>
-                  </el-select>
-                </el-form-item>
+<!--                <el-form-item class="left-form-item" label="所属行业" prop="job_industry">-->
+<!--                  <el-select v-model="jobForm.job_industry" placeholder="请选择行业类型">-->
+<!--                    <el-option v-for="item in industryList"-->
+<!--                               :key="item"-->
+<!--                               :label="item"-->
+<!--                               :value="item">-->
+<!--                    </el-option>-->
+<!--                  </el-select>-->
+<!--                </el-form-item>-->
                 <el-form-item class="right-form-item" label="职位标签（方便求职者定位技能，选填）" prop="storageJobTag">
                   <AddTag :tagList.sync="jobForm.storageJobTag" :key="key"/>
                 </el-form-item>
@@ -79,25 +79,25 @@
   <!--            </el-form>-->
             </div>
           </div>
-          <div class="post-wrapper">
-            <h2>工作地点</h2>
-            <div class="content">
+<!--          <div class="post-wrapper">-->
+<!--            <h2>工作地点</h2>-->
+<!--            <div class="content">-->
   <!--            <el-form :model="jobForm" :rules="jobFormRules" ref="jobForm">-->
-                <el-form-item class="left-form-item" label="工作所在城市" prop="office_city">
-                  <el-input v-model="jobForm.office_city" @focus="dialogVisible = true"></el-input>
-                  <CityDialog :visible.sync="dialogVisible"
-                              :currentCity.sync="jobForm.office_city"
-                              :isUserSelect="true"/>
-                </el-form-item>
-                <el-form-item class="left-form-item" label="工作所在区" prop="office_district">
-                  <el-input v-model="jobForm.office_district"></el-input>
-                </el-form-item>
-                <el-form-item label="详细地址" prop="office_address">
-                  <Address :address.sync="jobForm.office_address" :key="key"/>
-                </el-form-item>
-  <!--            </el-form>-->
-            </div>
-          </div>
+<!--                <el-form-item class="left-form-item" label="工作所在城市" prop="office_city">-->
+<!--                  <el-input v-model="jobForm.office_city" @focus="dialogVisible = true"></el-input>-->
+<!--                  <CityDialog :visible.sync="dialogVisible"-->
+<!--                              :currentCity.sync="jobForm.office_city"-->
+<!--                              :isUserSelect="true"/>-->
+<!--                </el-form-item>-->
+<!--                <el-form-item class="left-form-item" label="工作所在区" prop="office_district">-->
+<!--                  <el-input v-model="jobForm.office_district"></el-input>-->
+<!--                </el-form-item>-->
+<!--                <el-form-item label="详细地址" prop="office_address">-->
+<!--                  <Address :address.sync="jobForm.office_address" :key="key"/>-->
+<!--                </el-form-item>-->
+<!--  &lt;!&ndash;            </el-form>&ndash;&gt;-->
+<!--            </div>-->
+<!--          </div>-->
           <div class="post-wrapper">
             <h2>职位描述</h2>
             <div class="content">
@@ -137,13 +137,13 @@
                           :showFullScreen="false"
                           :key="key"/>
                 </el-form-item>
-                <el-form-item label="面试信息（选填）" prop="interview_info">
-                  <Editor :placeholder="'请描述面试信息，建议使用短句并分条列出，例如：<br>面试方式：...<br>面试轮数：...<br>面试时间：...<br>是否自带简历：...'"
-                          :content.sync="jobForm.interview_info"
-                          :menus="['list']"
-                          :showFullScreen="false"
-                          :key="key"/>
-                </el-form-item>
+<!--                <el-form-item label="面试信息（选填）" prop="interview_info">-->
+<!--                  <Editor :placeholder="'请描述面试信息，建议使用短句并分条列出，例如：<br>面试方式：...<br>面试轮数：...<br>面试时间：...<br>是否自带简历：...'"-->
+<!--                          :content.sync="jobForm.interview_info"-->
+<!--                          :menus="['list']"-->
+<!--                          :showFullScreen="false"-->
+<!--                          :key="key"/>-->
+<!--                </el-form-item>-->
   <!--            </el-form>-->
             </div>
           </div>
@@ -175,8 +175,8 @@
 import GeneralTopBar from "../../../components/GeneralTopBar";
 import GeneralFooter from "../../../components/GeneralFooter";
 import AddTag from "@/components/AddTag";
-import CityDialog from "@/components/CityDialog";
-import Address from "@/components/Address";
+// import CityDialog from "@/components/CityDialog";
+// import Address from "@/components/Address";
 import Editor from "@/components/Editor";
 import PreviewPicture from "@/components/PreviewPicture";
 
@@ -186,8 +186,8 @@ export default {
     GeneralTopBar,
     GeneralFooter,
     AddTag,
-    CityDialog,
-    Address,
+    // CityDialog,
+    // Address,
     Editor,
     PreviewPicture
   },
@@ -209,9 +209,9 @@ export default {
       key: 0,
       jobForm: {
         job_id: "",
-        login_id: this.$store.state.login_id,
+        login_id: JSON.parse(window.sessionStorage.getItem('user')).id,
         job_duty: "",
-        job_industry: "",
+        // job_industry: "",
         job_salary: "",
         // tag前端临时存储
         storageJobTag: [],
@@ -225,10 +225,10 @@ export default {
         job_requirement: "",
         job_benefit: "",
         attached_info: "",
-        interview_info: "",
-        office_city: "",
-        office_district: "",
-        office_address: "",
+        // interview_info: "",
+        // office_city: "",
+        // office_district: "",
+        // office_address: "",//职位地址默认是公司地址
         job_status: "",
       },
       jobFormRules: {
@@ -282,23 +282,43 @@ export default {
     // 如果是职位编辑情况下，路由会带职位ID参数,请求后台数据赋值
     async initData() {
       const res = await this.$axios.request({
-        url: "/job/edit/" + this.$route.query.job_id,
+        url: "/job/info",
         method: "get",
+        params: {
+          id: this.$route.query.job_id,
+          isDetail: true // 是否获取职位详细数据（区分职位详情和职位评价的信息量返回）
+        }
       })
       console.log(res);
-      if(res.msg === "success") {
-        this.jobForm = Object.assign({},this.jobForm,res.data.jobForm);
+      // if(res.msg === "success") {
+      res.job_id = res.id;
+      res.job_duty = res.name;
+      res.job_salary = res.salary;
+      res.job_tag = res.tag;
+      res.job_year = res.experience;
+      res.education = res.qualification;
+      res.job_description = res.description;
+      res.job_requirement = res.requirement;
+      res.job_benefit = res.benefit;
+      res.office_address = res.company.address;
+      res.job_status = res.status;
+        this.jobForm = Object.assign({},this.jobForm,res);
         this.$set(this.jobForm, "storageJobTag", this.jobForm.job_tag.split(","));
         this.jobSalaryReverse();
         // 刷新key，引起子组件刷新及时更新prop
         this.key += 1;
-      }
+      // }
     },
     // 薪酬转换
     editJobSalary() {
       let baseSalary = "";
       if (this.min_salary && this.max_salary) {
-        baseSalary = `${this.min_salary}-${this.max_salary}K`;
+
+        if(this.min_salary>this.max_salary){
+          baseSalary = `${this.max_salary}-${this.min_salary}K`;
+        }else{
+          baseSalary = `${this.min_salary}-${this.max_salary}K`;
+        }
       }
       if (baseSalary && this.extra_salary) {
         baseSalary += `·${this.extra_salary}薪`
@@ -333,16 +353,31 @@ export default {
       this.$refs[formName].validate(async (valid) => {
         if (valid) {
           const res = await this.$axios.request({
-            url: "/job/saveOrUpdate",
+            url: "/job/addJob",
             method: "post",
-            data: this.jobForm
-          })
-          console.log(res);
-          if (res.msg === "success") {
-            // 如果是职位新增，job_id为空，需要查库赋值
-            if(!this.jobForm.job_id) {
-              await this.$set(this.jobForm, "job_id", res.data.job_id);
+            data: {
+              id:this[formName].job_id,
+              uid:this[formName].login_id,
+              name:this[formName].job_duty,
+              experience:this[formName].job_year,
+              qualification:this[formName].education,
+              salary:this[formName].job_salary,
+              tag:this[formName].job_tag,
+              recruit_num:this[formName].recruit_num,
+              description:this[formName].job_description,
+              requirement:this[formName].job_requirement,
+              benefit:this[formName].job_benefit,
+              attached_info:this[formName].attached_info,
+              status:this[formName].job_status
             }
+          })
+          console.log("####")
+          console.log(res);
+          if (res.message === "success") {
+            // 如果是职位新增，job_id为空，需要查库赋值
+            // if(!this.jobForm.job_id) {
+            //   await this.$set(this.jobForm, "job_id", res.obj.job_id);
+            // }
             // 预览简历将直接返回，不会有提示消息
             if (isPreview) {
               return this.previewVisible = isPreview;

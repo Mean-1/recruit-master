@@ -122,8 +122,8 @@
                 }
             };
             return {
-                resume: {},
-                /*resume: {
+                // resume: {},
+                resume: {
                     applicant_id: "",
                     applicant_avatar: require("@/image/avatar/applicant_zhang.png"),
                     applicant_name: "张三",
@@ -135,7 +135,7 @@
                     applicant_tel: "13522342234",
                     applicant_email: "850609866@qq.com",
                     applicant_city: "深圳",
-                },*/
+                },
                 resumeForm: {
                     applicant_id: "",
                     applicant_name: "",

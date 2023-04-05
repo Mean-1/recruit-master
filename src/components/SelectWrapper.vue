@@ -59,7 +59,7 @@ export default {
             };
           user.setInfo(selectedConditions)
           console.log(user)
-          console.log(this.$emit("getOption",selectedConditions))
+          console.log(this.$emit("update:label",selectedConditions))
 
             this.isHover = false;
         }

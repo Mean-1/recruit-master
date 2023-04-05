@@ -50,22 +50,22 @@
               </el-input>
               <el-button type="primary" @click="editOpen('passwordDialogVisible')">修改密码</el-button>
             </div>
-            <div class="setting-wrapper">
-              <div class="setting-name">联系电话</div>
-              <el-input
-                    v-model="loginForm.recruiter_tel"
-                    :disabled="true">
-              </el-input>
-              <el-button type="primary" @click="editOpen('telDialogVisible')">更换电话</el-button>
-            </div>
-            <div class="setting-wrapper">
-              <div class="setting-name">微信号码</div>
-              <el-input
-                    v-model="loginForm.recruiter_wechat"
-                    :disabled="true">
-              </el-input>
-              <el-button type="primary" @click="editOpen('wechatDialogVisible')">更换微信</el-button>
-            </div>
+<!--            <div class="setting-wrapper">-->
+<!--              <div class="setting-name">联系电话</div>-->
+<!--              <el-input-->
+<!--                    v-model="loginForm.recruiter_tel"-->
+<!--                    :disabled="true">-->
+<!--              </el-input>-->
+<!--              <el-button type="primary" @click="editOpen('telDialogVisible')">更换电话</el-button>-->
+<!--            </div>-->
+<!--            <div class="setting-wrapper">-->
+<!--              <div class="setting-name">微信号码</div>-->
+<!--              <el-input-->
+<!--                    v-model="loginForm.recruiter_wechat"-->
+<!--                    :disabled="true">-->
+<!--              </el-input>-->
+<!--              <el-button type="primary" @click="editOpen('wechatDialogVisible')">更换微信</el-button>-->
+<!--            </div>-->
           </div>
           <div class="setting" v-else-if="currentNav === '个人展示'" :key="currentNav">
           <el-form class="recruiter-setting" :model="recruiterForm" :rules="recruiterFormRules" ref="recruiterForm" label-width="100px">
@@ -223,10 +223,12 @@
                     callback();
                 }
             };
+            //这里没用到，交给后端处理了
             let checkPassword = (rule, value, callback) => {
                 if (!value) {
                     callback(new Error("请输入旧密码"));
                 } else if (this.loginForm.password !== value) {
+
                     callback(new Error("密码输入有误，请重新输入"))
                 } else {
                     callback();
@@ -311,7 +313,7 @@
                         { required: true, validator: checkPhone, blur: ['blur','change']}
                     ],
                     password: [
-                        { required: true, validator: checkPassword, blur: ['blur','change']}
+                        { required: true,  blur: ['blur','change']}
                     ],
                     newPhone: [
                         { required: true, validator: checkNewPhone, blur: 'blur'}
@@ -327,7 +329,7 @@
                 },
                 passwordRules: {
                     password: [
-                        { required: true, validator: checkPassword, blur: ['blur','change']}
+                        { required: true, blur: ['blur','change']}
                     ],
                     newPassword: [
                         { required: true, validator: checkNewPassword, blur: ['blur','change']}
@@ -422,12 +424,15 @@
             },
             async getSettingInfo() {
                 const res = await this.$axios.request({
-                    url: "/recruiter/setting/" + this.$store.state.login_id,
+                    url: "/users/getInfo/" + JSON.parse(window.sessionStorage.getItem('user')).id,
                     method: "get"
                 })
-                console.log(res)
-                if (res.msg === "success") {
-                    this.loginForm = Object.assign({},{},res.data.loginForm);
+              console.log("###")
+              console.log(res)
+                if (res.message === "success") {
+                    res.obj.login_phone=res.obj.users.phone;
+                    res.obj.password = res.obj.users.password;
+                    this.loginForm = Object.assign({},{},res.obj);
                 }
             },
             //获取招聘者的基本信息
@@ -451,24 +456,27 @@
                 let res;
                 switch(formName){
                     case "phoneForm":
+                      console.log(JSON.parse(window.sessionStorage.getItem('user')).id)
                         res = await this.$axios.request({
-                            url: "/login/updatePhone",
+                            url: "/users/updatePhone",
                             method: "post",
-                            data: {
-                                login_id: this.$store.state.login_id,
+                            params: {
+                                id: JSON.parse(window.sessionStorage.getItem('user')).id,
+                                oldPassword:this[formName].password,
                                 newPhone: this[formName].newPhone
                             }
                         });
-                        console.log(res);
+                      console.log(res);
                         await this.getSettingInfo();
                         break;
                     case "passwordForm":
                         res = await this.$axios.request({
-                            url: "/login/updatePass",
+                            url: "/users/updatePassword",
                             method: "post",
-                            data: {
-                                login_id: this.$store.state.login_id,
-                                newPass: this[formName].newPassword
+                            params: {
+                                id: JSON.parse(window.sessionStorage.getItem('user')).id,
+                                oldPassword: this[formName].password,
+                                newPassword: this[formName].newPassword
                             }
                         });
                         console.log(res);
