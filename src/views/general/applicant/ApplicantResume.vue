@@ -42,7 +42,7 @@
         },
         data() {
             return {
-                applicant_id: 1,
+                applicant_id: "",
                 menuList: [
                     { icon: "el-icon-gerenzhongxin", name: "个人中心", href: "/applicant"},
                     { icon: "el-icon-jianli", name: "我的简历", href: "/applicant/resume"},
@@ -58,13 +58,13 @@
         methods: {
             async getApplicantId() {
                 const res = await this.$axios.request({
-                    url: `/applicant/getId/`+JSON.parse(window.sessionStorage.getItem('user')).id,
+                    url: `/user-resume/getRidByUid/`+JSON.parse(window.sessionStorage.getItem('user')).id,
                     method: "get",
                 });
                 console.log(res);
-                if(res.msg === "success") {
-                    this.applicant_id = res.data.applicant_id;
-                }
+
+                this.applicant_id = res;
+
             },
             menuSelect(name) {
                 this.currentMenu = name;

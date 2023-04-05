@@ -204,15 +204,17 @@
         methods: {
             async initData() {
                 const res = await this.$axios.request({
-                    url: `/applicant/baseInfo/${this.resume_id}`,
+                    url: `/resume-baseinfo/getBaseInfoByResumeId/${this.resume_id}`,
                     method: "get",
                 });
                 console.log(res);
-                if(res.msg === 'success'){
-                    if (res.data.resume.applicant_avatar){
-                        res.data.resume.applicant_avatar = require( "@/image/avatar/" + res.data.resume.applicant_avatar);
+                if(res.message == 'success'){
+                    if (res.obj.applicant_avatar){
+                        res.obj.applicant_avatar = require( "@/image/avatar/" + res.obj.applicant_avatar);
                     }
-                    this.resume = Object.assign({},{},res.data.resume);
+                    res.obj.applicant_id=res.obj.id;
+
+                    this.resume = Object.assign({},{},res.obj);
                 }
                 // 获取完数据告知父组件已更新完毕,用于预览简历的异步通知
                 this.$emit("updatePart:resume", 1)
@@ -240,12 +242,25 @@
                 this.$refs[formName].validate(async (valid) => {
                     if (valid) {
                         const res = await this.$axios.request({
-                            url: `/applicant/saveOrUpdate`,
+                            url: `/resume-baseinfo/saveOrUpdate`,
                             method: "post",
-                            data: this.resumeForm
+                            data: {
+                              id:this[formName].applicant_id,
+                              resume_id:this.resume_id,
+                              applicant_avatar:this[formName].applicant_avatar,
+                              applicant_name:this[formName].applicant_name,
+                              applicant_sex:this[formName].applicant_sex,
+                              applicant_age:this[formName].applicant_age,
+                              applicant_identity:this[formName].applicant_identity,
+                              working_year:this[formName].working_year,
+                              applicant_education:this[formName].applicant_education,
+                              applicant_tel:this[formName].applicant_tel,
+                              applicant_email:this[formName].applicant_email,
+                              applicant_city:this[formName].applicant_city
+                            }
                         });
                         console.log(res);
-                        if(res.msg === 'success'){
+                        if(res.message === 'success'){
                             await this.initData();
                         }
                         this.$message.success("保存成功");
