@@ -10,7 +10,7 @@
             <el-button type="text" icon="el-icon-edit" class="edit"
                        @click="toggleEdit('editJobIntention',jobIntention, jobIntentionForm,index)">编辑</el-button>
             <el-button type="text" icon="el-icon-delete-solid" class="remove"
-                       @click="remove(jobIntention)">删除</el-button>
+                       @click="remove(jobIntention.intention_id)">删除</el-button>
             <p>
               <i class="el-icon-zhiwei position-icon"></i>
               <span>{{jobIntention.intention_duty}}</span>
@@ -104,27 +104,27 @@
         },
         data() {
             return {
-                jobIntentionList: [],
-                // jobIntentionList: [
-                //     {
-                //         intention_id: "",
-                //         intention_duty: "前端工程师",
-                //         intention_type: "全职",
-                //         intention_city: "深圳",
-                //         min_salary: "8K",
-                //         max_salary: "14K",
-                //         arrive_date: "2周内"
-                //     },
-                //     {
-                //         intention_id: "",
-                //         intention_duty: "web前端开发工程师",
-                //         intention_type: "全职",
-                //         intention_city: "广州",
-                //         min_salary: "7K",
-                //         max_salary: "13K",
-                //         arrive_date: "1个月内"
-                //     }
-                // ],
+                // jobIntentionList: [],
+                jobIntentionList: [
+                    {
+                        intention_id: "",
+                        intention_duty: "前端工程师",
+                        intention_type: "全职",
+                        intention_city: "深圳",
+                        min_salary: "8K",
+                        max_salary: "14K",
+                        arrive_date: "2周内"
+                    },
+                    {
+                        intention_id: "",
+                        intention_duty: "web前端开发工程师",
+                        intention_type: "全职",
+                        intention_city: "广州",
+                        min_salary: "7K",
+                        max_salary: "13K",
+                        arrive_date: "1个月内"
+                    }
+                ],
                 jobIntentionForm: {
                     intention_id: "",
                     resume_id: this.resume_id,
@@ -167,12 +167,12 @@
         methods: {
             async initData() {
                 const res = await this.$axios.request({
-                    url: `/job-intention/list/${this.resume_id}`,
+                    url: `/resume-intention/getIntentionByResumeId/${this.resume_id}`,
                     method: "get",
                 });
                 console.log(res);
-                if(res.msg === 'success'){
-                    this.jobIntentionList = Object.assign([],[],res.data.jobIntentionList);
+                if(res.message === 'success'){
+                    this.jobIntentionList = Object.assign([],[],res.obj);
                 }
                 // 获取完数据告知父组件已更新完毕,用于预览简历的异步通知
                 this.$emit("updatePart:resume", 1)
@@ -197,9 +197,8 @@
             // 求职意向删除
             async remove(jobIntention) {
                 const res = await this.$axios.request({
-                    url: `/job-intention/delete`,
-                    method: "delete",
-                    data: jobIntention
+                    url: `/resume-intention/deleteById/${jobIntention}`,
+                    method: "delete"
                 })
                 console.log(res);
                 this.initData();
@@ -209,12 +208,12 @@
                 this.$refs[formName].validate(async (valid) => {
                     if (valid) {
                         const res = await this.$axios.request({
-                            url: `/job-intention/saveOrUpdate`,
+                            url: `/resume-intention/saveOrUpdate`,
                             method: "post",
                             data: this.jobIntentionForm
                         });
                         console.log(res);
-                        if(res.msg === 'success'){
+                        if(res.message === 'success'){
                             this.initData();
                         }
                         this.$message.success("保存成功");

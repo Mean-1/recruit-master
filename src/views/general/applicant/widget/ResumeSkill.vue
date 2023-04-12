@@ -11,7 +11,7 @@
             <el-button type="text" icon="el-icon-edit" class="edit"
                        @click="toggleEdit('editSkillList',skill, skillForm)">编辑</el-button>
             <el-button type="text" icon="el-icon-delete-solid" class="remove"
-                       @click="remove(skill)">删除</el-button>
+                       @click="remove(skill.skill_id)">删除</el-button>
             <span class="skill-name">{{ skill.skill_name }}</span>
             <el-progress color="#00c2b3" :stroke-width="13" :percentage="skillPercentage(skill.mastery_degree)" :format="((val) => skillFormat(val,skill))"></el-progress>
           </div>
@@ -61,13 +61,13 @@
         },
         data() {
             return {
-                skillList: [],
-                /* skillList: [
+                // skillList: [],
+                 skillList: [
                     { skill_id: "", skill_name: "SQL、MySQL", mastery_degree: "精通"},
                     { skill_id: "", skill_name: "HTML、CSS、JS", mastery_degree: "熟练"},
                     { skill_id: "", skill_name: "算法、数据结构", mastery_degree: "掌握"},
                     { skill_id: "", skill_name: "webpack、git、svn", mastery_degree: "了解"},
-                ], */
+                ],
                 skillForm: {
                     skill_id: "",
                     resume_id: this.resume_id,
@@ -92,12 +92,12 @@
         methods: {
             async initData() {
                 const res = await this.$axios.request({
-                    url: `/skill/list/${this.resume_id}`,
+                    url: `/resume-skill/getSkillByResumeId/${this.resume_id}`,
                     method: "get",
                 });
                 console.log(res);
-                if(res.msg === 'success'){
-                    this.skillList = Object.assign([],[],res.data.skillList);
+                if(res.message === 'success'){
+                    this.skillList = Object.assign([],[],res.obj);
                 }
                 // 获取完数据告知父组件已更新完毕,用于预览简历的异步通知
                 this.$emit("updatePart:resume", 1)
@@ -144,9 +144,8 @@
             // 专业技能删除
             async remove(skill) {
                 const res = await this.$axios.request({
-                    url: `/skill/delete`,
-                    method: "delete",
-                    data: skill
+                    url: `/resume-skill/deleteById/${skill}`,
+                    method: "delete"
                 })
                 console.log(res);
                 this.initData();
@@ -156,12 +155,12 @@
                 this.$refs[formName].validate(async (valid) => {
                     if (valid) {
                         const res = await this.$axios.request({
-                            url: `/skill/saveOrUpdate`,
+                            url: `/resume-skill/saveOrUpdate`,
                             method: "post",
                             data: this.skillForm
                         });
                         console.log(res);
-                        if(res.msg === 'success'){
+                        if(res.message === 'success'){
                             this.initData();
                         }
                         this.$message.success("保存成功");

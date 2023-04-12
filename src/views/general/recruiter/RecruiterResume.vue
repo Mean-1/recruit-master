@@ -18,36 +18,36 @@
         <transition name="el-fade-in">
           <div class="apply" v-if="!showResume">
             <div class="filter-select">
-              <div class="filter-job-industry">
-                <ul>
-                  <li v-for="(industry,index) in filterIndustry"
-                      :key="industry.job_industry + index"
-                      :class="{'is-selected': currentIndustry === industry.job_industry}"
-                      @click="industrySelect(industry.job_industry)">
-                    <span class="job-industry">{{ industry.job_industry }}</span>
-                    <span class="job-num">{{ industry.job_num }}</span>
-                  </li>
-                </ul>
-                <el-input
-                      class="search-input"
-                      placeholder="搜索求职者、院校、应聘职位"
-                      prefix-icon="el-icon-search"
-                      v-model="searchKey"
-                      @change="search">
-                </el-input>
-              </div>
+<!--              <div class="filter-job-industry">-->
+<!--                <ul>-->
+<!--                  <li v-for="(industry,index) in filterIndustry"-->
+<!--                      :key="industry.job_industry + index"-->
+<!--                      :class="{'is-selected': currentIndustry === industry.job_industry}"-->
+<!--                      @click="industrySelect(industry.job_industry)">-->
+<!--                    <span class="job-industry">{{ industry.job_industry }}</span>-->
+<!--                    <span class="job-num">{{ industry.job_num }}</span>-->
+<!--                  </li>-->
+<!--                </ul>-->
+<!--                <el-input-->
+<!--                      class="search-input"-->
+<!--                      placeholder="搜索求职者、院校、应聘职位"-->
+<!--                      prefix-icon="el-icon-search"-->
+<!--                      v-model="searchKey"-->
+<!--                      @change="search">-->
+<!--                </el-input>-->
+<!--              </div>-->
               <div class="filter-condition">
+<!--                <div class="condition-wrapper">-->
+<!--                  <span>投递职位：</span>-->
+<!--                  <SelectWrapper :label="currentJob" :options="filterConditionJob.map(item => item.job_duty)" @update:label="changeJob"/>-->
+<!--                </div>-->
                 <div class="condition-wrapper">
-                  <span>投递职位：</span>
-                  <SelectWrapper :label="currentJob" :options="filterConditionJob.map(item => item.job_duty)" @update:label="changeJob"/>
-                </div>
-                <div class="condition-wrapper">
-                  <span>投递时间：</span>
-                  <SelectWrapper :label="currentDate" :options="conditionDate" @update:label="changeDate"/>
+                  <span>简历状态：</span>
+                  <SelectWrapper :label="currentStatus" :options="conditionStatus" @update:label="changeDate"/>
                 </div>
                 <div class="selected-btn">
-                  <el-button round @click="updateStatus(selectedApplyIds,'4')">一键面试</el-button>
-                  <el-button round @click="updateStatus(selectedApplyIds,'0')">一键拒绝</el-button>
+                  <el-button round @click="updateStatus(selectedApplyIds,'1')">一键面试</el-button>
+                  <el-button round @click="updateStatus(selectedApplyIds,'2')">一键拒绝</el-button>
                 </div>
               </div>
             </div>
@@ -116,6 +116,14 @@
                 <el-table-column
                       prop="create_date"
                       label="投递时间">
+                  <template slot-scope="scope">
+                    {{scope.row.create_date[0]}}-
+                    {{scope.row.create_date[1]}}-
+                    {{scope.row.create_date[2]}}
+<!--                    {{scope.row.create_date[3]}}:-->
+<!--                    {{scope.row.create_date[4]}}:-->
+<!--                    {{scope.row.create_date[5]}}-->
+                  </template>
                 </el-table-column>
                 <el-table-column
                       label="操作"
@@ -156,6 +164,9 @@
           <ShowResume v-else :applicant_id="selectedApplicantId"/>
         </transition>
       </div>
+<!--      简历-->
+<!--      <Resume :applicant_id="applicant_id" v-if="applicant_id" />-->
+
     </main>
     <!-- 底部信息栏 -->
     <GeneralFooter />
@@ -169,6 +180,7 @@
     import SelectWrapper from "@/components/SelectWrapper.vue";
     import * as Constant from "@/common/constants.js"
     import ShowResume from "@/views/general/widgets/ShowResume";
+    // import Resume from "../applicant/widget/Resume.vue";
     export default {
         name: "RecruiterMessage",
         components: {
@@ -176,16 +188,19 @@
             GeneralFooter,
             SymbolIcon,
             SelectWrapper,
-            ShowResume
+            ShowResume,
+            // Resume
         },
         data() {
             return {
+              //进入简历页面，传的id
+              applicant_id:"",
                 menuList: [
                     { icon: "el-icon-gongzuotai", name: "工作台", href: "/recruiter"},
                     { icon: "el-icon-zhiwei", name: "职位管理", href: "/recruiter/job"},
                     { icon: "el-icon-jianli", name: "简历处理", href: "/recruiter/resume"},
-                    { icon: "el-icon-mianshi", name: "面试相关", href: "/recruiter/interview"},
-                    { icon: "el-icon-xiaoxi", name: "我的消息", href: "/recruiter/message"},
+                    // { icon: "el-icon-mianshi", name: "面试相关", href: "/recruiter/interview"},
+                    // { icon: "el-icon-xiaoxi", name: "我的消息", href: "/recruiter/message"},
                     { icon: "el-icon-shezhi", name: "账号设置", href: "/recruiter/setting"}
                 ],
                 currentMenu: "简历处理",
@@ -211,13 +226,19 @@
                 ],*/
                 conditionJob: [],
                 currentJob: "不限",
-                conditionDate: ["不限","今天","2天内","3天内","1周内","2周内","1个月内","3个月内","半年内","半年以上"],
-                currentDate: "不限",
+                conditionStatus: ["未处理","邀面试","已拒绝","已结束"],
+                currentStatus: "未处理",
+                //传入后端的状态
+                status:0,
                 //传入后端的时间参数
                 date:"",
                 // applyList: [],
                 applyList: [
                     {
+                      //投递id
+                      apply_id:"",
+                      // 简历id
+                      applicant_id:"",
                         applicant_avatar: require("@/image/avatar/applicant_zhang.png"),
                         applicant_name: "张三",
                         applicant_sex: "男",
@@ -225,59 +246,60 @@
                         working_year: "1年",
                         applicant_education: "本科",
                         applicant_identity: "学生",
-                        major: "软件工程",
+                        // major: "软件工程",
                         school_name: "清华大学",
                         job_duty: "前端工程师",
                         create_date: "2022-3-15 14:00",
                     },
-                    {
-                        applicant_avatar: require("@/image/avatar/applicant_huang.png"),
-                        applicant_name: "黄瑾",
-                        applicant_sex: "女",
-                        applicant_age: 21,
-                        working_year: "暂无",
-                        applicant_education: "本科",
-                        applicant_identity: "学生",
-                        major: "电子信息工程",
-                        school_name: "北京大学",
-                        job_duty: "前端助理",
-                        create_date: "2022-3-18 10:00",
-                    },
-                    {
-                        applicant_avatar: require("@/image/avatar/applicant_tong.png"),
-                        applicant_name: "童景程",
-                        applicant_sex: "男",
-                        applicant_age: 25,
-                        working_year: "2年",
-                        applicant_education: "本科",
-                        applicant_identity: "职场人士",
-                        major: "",
-                        school_name: "",
-                        job_duty: "前端开发工程师",
-                        create_date: "2022-3-21 16:30",
-                    },
-                    {
-                        applicant_avatar: require("@/image/avatar/applicant_wei.png"),
-                        applicant_name: "魏晴雅",
-                        applicant_sex: "女",
-                        applicant_age: 27,
-                        working_year: "3年",
-                        applicant_education: "本科",
-                        applicant_identity: "职场人士",
-                        major: "电子商务",
-                        school_name: "南京大学",
-                        job_duty: "内容运营",
-                        create_date: "2022-3-24 16:30",
-                    },
+                    // {
+                    //     applicant_avatar: require("@/image/avatar/applicant_huang.png"),
+                    //     applicant_name: "黄瑾",
+                    //     applicant_sex: "女",
+                    //     applicant_age: 21,
+                    //     working_year: "暂无",
+                    //     applicant_education: "本科",
+                    //     applicant_identity: "学生",
+                    //     major: "电子信息工程",
+                    //     school_name: "北京大学",
+                    //     job_duty: "前端助理",
+                    //     create_date: "2022-3-18 10:00",
+                    // },
+                    // {
+                    //     applicant_avatar: require("@/image/avatar/applicant_tong.png"),
+                    //     applicant_name: "童景程",
+                    //     applicant_sex: "男",
+                    //     applicant_age: 25,
+                    //     working_year: "2年",
+                    //     applicant_education: "本科",
+                    //     applicant_identity: "职场人士",
+                    //     major: "",
+                    //     school_name: "",
+                    //     job_duty: "前端开发工程师",
+                    //     create_date: "2022-3-21 16:30",
+                    // },
+                    // {
+                    //     applicant_avatar: require("@/image/avatar/applicant_wei.png"),
+                    //     applicant_name: "魏晴雅",
+                    //     applicant_sex: "女",
+                    //     applicant_age: 27,
+                    //     working_year: "3年",
+                    //     applicant_education: "本科",
+                    //     applicant_identity: "职场人士",
+                    //     major: "电子商务",
+                    //     school_name: "南京大学",
+                    //     job_duty: "内容运营",
+                    //     create_date: "2022-3-24 16:30",
+                    // },
                 ],
 
                 secondLabel: Constant.HEADER_TABLE_IDENTITY,
                 secondHeader: [Constant.HEADER_TABLE_IDENTITY, Constant.HEADER_TABLE_MAJOR],
             
                 userHandle: [
-                    { icon: "el-icon-s-opportunity", label: Constant.INTERESTED},
+                    // { icon: "el-icon-s-opportunity", label: Constant.INTERESTED},
                     { icon: "el-icon-message", label: Constant.INTERVIEW_INVITATION},
-                    { icon: "el-icon-delete-solid", label: Constant.INAPPROPRIATE}
+                    { icon: "el-icon-delete-solid", label: Constant.INAPPROPRIATE},
+                    { icon: "el-icon-s-opportunity", label: Constant.DONE}
                 ],
                 currentPage: 1,
                 pageSize: 10,
@@ -345,42 +367,68 @@
                 }
             },
             async getApplyList() {
-                const res = await this.$axios.request({
-                    url: `/apply/applyManagePage`,
+                if("邀面试"==this.currentStatus) this.status =1;
+                else if("已拒绝"==this.currentStatus) this.status = 2;
+                else if("已结束"==this.currentStatus) this.status = 3;
+                else if("未处理"==this.currentStatus) this.status = 0;
+              console.log(this.currentStatus)
+              console.log(this.status)
+
+              const res = await this.$axios.request({
+                    url: `/user-job-applycation/getAllResume`,
                     method: "get",
                     params: {
                         currentPage: this.currentPage,
                         pageSize: this.pageSize,
-                        login_id: this.$store.state.login_id,
-                        job_duty: this.currentJob !== "不限" ? this.currentJob : "",
-                        job_industry: this.currentIndustry !== "全部" ? this.currentIndustry : "",
-                        condition: this.currentDate
+                        uid: JSON.parse(window.sessionStorage.getItem('user')).id,
+                        status: this.status
+                        // job_duty: this.currentJob !== "不限" ? this.currentJob : "",
+                        // job_industry: this.currentIndustry !== "全部" ? this.currentIndustry : "",
+                        // condition: this.currentDate
                     }
                 })
                 console.log(res);
-                if(res.msg === "success") {
-                    res.data.applyList.forEach(item => {
-                        item.applicant_avatar = require("@/image/avatar/" + item.applicant_avatar);
+
+                    res.data.forEach(item => {
+                        if(!item.resume.id){
+                          return;
+                        }
+                      item.apply_id = item.id;
+                      item.applicant_id = item.resume.id;
+
+                      if(item.resume_baseinfo.applicant_avatar){
+                          item.applicant_avatar = require("@/image/avatar/" + item.resume_baseinfo.applicant_avatar);
+                        }
+                        item.applicant_name = item.resume_baseinfo.applicant_name;
+                        item.applicant_sex = item.resume_baseinfo.applicant_sex;
+                        item.applicant_age = item.resume_baseinfo.applicant_age;
+                        item.working_year = item.resume_baseinfo.working_year;
+                        item.applicant_identity = item.resume_baseinfo.applicant_identity;
+                        item.applicant_education = item.resume_baseinfo.applicant_education;
+                        item.school_name = item.resume_education.school_name;
+                        item.job_duty = item.job.name;
+
+
                     })
-                    this.total = res.data.total
-                    this.applyList = Object.assign([],[],res.data.applyList);
-                }
+                    this.total = res.total
+                    this.applyList = Object.assign([],[],res.data);
+
             },
             // 投递状态更新，批量更新（单个也传递数组形式）
             async updateStatus(idArray, apply_status) {
+              console.log(idArray)
                 const res = await this.$axios.request({
-                    url: `/apply/updateStatus`,
+                    url: `/user-job-applycation/updateApplyStatus`,
                     method: "post",
                     data: {
-                        idArray: idArray,
-                        apply_status: apply_status
+                        selectedIds: idArray,
+                        status: apply_status
                     }
                 })
                 console.log(res);
-                if(res.msg === "success") {
+                if(res.message === "success") {
                     this.$message.success("投递状态已更新！");
-                    await this.getIndustryList();
-                    await this.getApplyList();
+                    await this.initData();
                 } else {
                     this.$message.error("投递状态更新失败！");
                 }
@@ -402,7 +450,7 @@
             },
             // 投递时间选中
             changeDate(value) {
-                this.currentDate = value;
+                this.currentStatus = value.option;
                 this.getApplyList();
             },
             handleSelectionChange(applyList) {
@@ -415,13 +463,13 @@
                 if (row) {
                     switch(key){
                         case this.userHandle[0].label:
-                            this.updateStatus([row.apply_id], "3");
+                            this.updateStatus([row.apply_id], "1");
                             break;
                         case this.userHandle[1].label:
-                            this.updateStatus([row.apply_id], "4");
+                            this.updateStatus([row.apply_id], "2");
                             break;
                         case this.userHandle[2].label:
-                            this.updateStatus([row.apply_id], "0");
+                            this.updateStatus([row.apply_id], "3");
                             break;
                     }
                 }

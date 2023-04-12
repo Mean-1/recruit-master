@@ -41,15 +41,15 @@
         },
         data() {
             return {
-                resume: {},
-                /*resume: {
+                // resume: {},
+                resume: {
                     resume_id: "",
                     applicant_id: "",
                     self_evaluation: "对待工作责任感强，细致认真，积极向上，有较强的团队意识。\n" +
                         "喜欢与他人交往、热爱生活、乐于助人。\n" +
                         "自学能力较强，刻苦努力，不断要求自己、提升自己。\n" +
                         "同时善于观察周围的事物，善于收集资料分析问题，并能快速解决问题。"
-                },*/
+                },
                 resumeForm: {
                     resume_id: this.resume_id,
                     applicant_id: "",
@@ -65,12 +65,13 @@
         methods: {
             async initData() {
                 const res = await this.$axios.request({
-                    url: `/resume/selfEvaluation/${this.resume_id}`,
+                    url: `/resume-selfevaluation/getSelfEvaluationByResumeId/${this.resume_id}`,
                     method: "get",
                 });
                 console.log(res);
-                if(res.msg === 'success'){
-                    this.resume = Object.assign({},{},res.data.resume);
+                if(res.message === 'success'){
+                    res.obj.applicant_id=res.obj.id;
+                    this.resume = Object.assign({},{},res.obj);
                 }
                 // 获取完数据告知父组件已更新完毕,用于预览简历的异步通知
                 this.$emit("updatePart:resume", 1)
@@ -101,15 +102,21 @@
                 this.$refs[formName].validate(async (valid) => {
                     if (valid) {
                         const res = await this.$axios.request({
-                            url: `/resume/saveOrUpdate`,
+                            url: `/resume-selfevaluation/saveOrUpdate`,
                             method: "post",
-                            data: this.resumeForm
+                            data: {
+                              id:this[formName].applicant_id,
+                              resume_id:this[formName].resume_id,
+                              self_evaluation:this[formName].self_evaluation
+                            }
                         });
                         console.log(res);
-                        if(res.msg === 'success'){
-                            for (const [key, value] of Object.entries(res.data.resume)) {
-                                this.$set(this.resume,key,value);
-                            }
+                        if(res.message === 'success'){
+                            // for (const [key, value] of Object.entries(res.data.resume)) {
+                            //     this.$set(this.resume,key,value);
+                            // }
+                          this.initData();
+
                         }
                         this.$message.success("保存成功");
                         this.resetForm(editDialog);

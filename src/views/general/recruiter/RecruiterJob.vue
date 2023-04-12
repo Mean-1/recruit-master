@@ -180,8 +180,8 @@
                     { icon: "el-icon-gongzuotai", name: "工作台", href: "/recruiter"},
                     { icon: "el-icon-zhiwei", name: "职位管理", href: "/recruiter/job"},
                     { icon: "el-icon-jianli", name: "简历处理", href: "/recruiter/resume"},
-                    { icon: "el-icon-mianshi", name: "面试相关", href: "/recruiter/interview"},
-                    { icon: "el-icon-xiaoxi", name: "我的消息", href: "/recruiter/message"},
+                    // { icon: "el-icon-mianshi", name: "面试相关", href: "/recruiter/interview"},
+                    // { icon: "el-icon-xiaoxi", name: "我的消息", href: "/recruiter/message"},
                     { icon: "el-icon-shezhi", name: "账号设置", href: "/recruiter/setting"}
                 ],
                 currentMenu: "职位管理",
@@ -311,7 +311,7 @@
                     ],
                 ],
                 currentPage: 1,
-                pageSize: 1,
+                pageSize: 10,
                 total: 1000,
 
                 previewVisible: false
@@ -379,7 +379,7 @@
                   item.job_industry = item.tag;
                   item.job_status = item.status;
               });
-                    this.total = res.data.total;
+                    this.total = res.total;
                     this.jobList = Object.assign([],[],res.data);
                 // }
             },
@@ -395,7 +395,7 @@
                       "Content-Type": "application/json",
                     },
                     data: {
-                      selectedJobIds: idArray,
+                      selectedIds: idArray,
                       status: job_status
                     }
                 })
@@ -418,7 +418,7 @@
                     url: `/job/deleteJobByIds`,
                     method: "delete",
                     data: {
-                      selectedJobIds: idArray,
+                      selectedIds: idArray,
                         // status: 0  //这个参数没用，只是为了符合后端对象的传参格式
                     }
                 })

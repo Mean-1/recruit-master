@@ -172,35 +172,26 @@ export default {
         return {
             // jobData: {},
             jobData: {
-                name: "前端开发工程师",
-                salary: "10-15K",
-                recruit_num: 5,
-                experience: "1年以上",
-                qualification: "本科",
+                name: "职位已下线",
+                salary: "职位已下线",
+                recruit_num: "",
+                experience: "",
+                qualification: "",
                 // job_type: "全职",
                 tag: ["JavaScript","Vue","React"],
-                job_benefit: "1、提供在行业中非常具有竞争力的薪水\n" +
-                    "2、为员工提供齐全的五险一金\n" +
-                    "3、逢年过节有过节福利（包括六一儿童节）\n" +
-                    "4、项目奖金、绩效奖、年终奖、体检、多次旅游等\n" +
-                    "5、不定期的员工活动\n" +
-                    "6、一年有两次调薪机会，表现好会有升职机会",
-                job_description: "1、参与公司中小商户管理软件产品的设计与研发，打造领先的SaaS产品\n" +
-                    "2、根据业务需求完成H5/小程序的前端交互开发\n" +
-                    "3、持续优化SaaS产品的前端交互体验",
-                job_requirement: "1、1年及以上前端开发经验，有移动Web开发经验或者小程序开发经验\n" +
-                    "2、有HybridApp开发经验，熟练使用Angular或Vue经验优先\n" +
-                    "3、有大型APP的前端架构部署和实践经验优先4、有责任感，对前端技术有激情，喜欢钻研，能快速接受和掌握新技术",
-                attached_info: "工作时间：早9晚6，周末双休",
+                job_benefit: "职位已下线",
+                job_description: "职位已下线",
+                job_requirement: "职位已下线",
+                attached_info: "职位已下线",
                 // interview_info: "面试方式：到场面试 | 电话面试\n" +
                 //     "面试轮数：1-2轮\n" +
                 //     "时间安排：分多次完成\n" +
                 //     "补充标签：可周末面试 | 可下班后面试",
-                office_address: "深圳南山区郎山路中同方信息港e栋",
-                update_date: "三天前发布",
-                recruiter_name: "王先生",
+                office_address: "",
+                update_date: "",
+                recruiter_name: "",
                 recruiter_avatar: require("@/image/avatar/recruiter_wang.png"),
-                interviewerDuty: "前端组长",
+                interviewerDuty: "",
             },
             // evaluation: [
             //     {
@@ -242,12 +233,12 @@ export default {
             // ],
             // company: {},
             company: {
-                company_name: "迅雷网络",
+                company_name: "",
                 company_logo: require("@/image/company/xunlei.jpg"),
-                company_tag: "移动互联网",
-                company_type: "上市公司",
-                company_size: "1000-5000人",
-                company_website: "www.xunlei.com"
+                company_tag: "",
+                company_type: "",
+                company_size: "",
+                company_website: ""
             },
             similarJob: [
                 {
@@ -315,35 +306,36 @@ export default {
                 method: "get",
                 params: {
                     id: this.$route.query.job_id,
-                    isDetail: true // 是否获取职位详细数据（区分职位详情和职位评价的信息量返回）
+                    isDetail: false // 判断后端查询时需要判断职位是否是属于下线状态  false为需要，true为不需要
                 }
             });
             console.log(res);
             //传值到前面return里去
-            // if(res.msg === 'success'){
-            //     res.data.jobData.recruiter_avatar = require("@/image/avatar/" + res.data.jobData.recruiter_avatar);
-            if(res.tag){
-              res.tag = res.tag.split(",");
+            if(res.message == "success") {
+              //     res.data.jobData.recruiter_avatar = require("@/image/avatar/" + res.data.jobData.recruiter_avatar);
+              if (res.tag) {
+                res.tag = res.tag.split(",");
 
+              }
+              res.obj.recruiter_name = res.obj.users.username;
+              res.obj.office_address = res.obj.company.address;
+              res.obj.job_benefit = res.obj.company.benefit;
+              res.obj.job_description = res.obj.description;
+              res.obj.job_requirement = res.obj.requirement;
+              res.obj.job_benefit = res.obj.benefit;
+
+              this.jobData = Object.assign({}, {}, res.obj);
+              //传入company值
+              res.obj.company.company_id = res.obj.company.id;
+              res.obj.company.company_name = res.obj.company.name;
+              res.obj.company.company_size = res.obj.company.size;
+              res.obj.company.company_tag = res.obj.company.tag;
+              res.obj.company.company_type = res.obj.company.type;
+              res.obj.company.company_website = res.obj.company.website;
+              res.obj.company.company_logo = require("@/image/company/" + res.obj.company.icon);
+              this.company = Object.assign({}, {}, res.obj.company);
+              console.log(JSON.parse(window.sessionStorage.getItem('user')).is_recruit)
             }
-            res.recruiter_name=res.users.username;
-            res.office_address=res.company.address;
-            res.job_benefit=res.company.benefit;
-            res.job_description=res.description;
-            res.job_requirement=res.requirement;
-            res.job_benefit=res.benefit;
-
-            this.jobData = Object.assign({},{},res);
-            //传入company值
-            res.company.company_id=res.company.id;
-            res.company.company_name=res.company.name;
-            res.company.company_size=res.company.size;
-            res.company.company_tag=res.company.tag;
-            res.company.company_type=res.company.type;
-            res.company.company_website=res.company.website;
-            res.company.company_logo = require("@/image/company/" + res.company.icon);
-            this.company = Object.assign({},{},res.company);
-            console.log(JSON.parse(window.sessionStorage.getItem('user')).is_recruit)
 
             //添加相似职位
             const res1 = await this.$axios.request({
@@ -425,9 +417,9 @@ export default {
                 method: "get",
             })
             console.log(res);
-            if("success"==res.message){
-              this.isApply = true;
-            }
+
+              this.isApply = res;
+
         },
         async apply() {
             if(!JSON.parse(window.sessionStorage.getItem('user')).is_recruit){

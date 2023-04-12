@@ -287,8 +287,8 @@
                     { icon: "el-icon-gongzuotai", name: "工作台", href: "/recruiter"},
                     { icon: "el-icon-zhiwei", name: "职位管理", href: "/recruiter/job"},
                     { icon: "el-icon-jianli", name: "简历处理", href: "/recruiter/resume"},
-                    { icon: "el-icon-mianshi", name: "面试相关", href: "/recruiter/interview"},
-                    { icon: "el-icon-xiaoxi", name: "我的消息", href: "/recruiter/message"},
+                    // { icon: "el-icon-mianshi", name: "面试相关", href: "/recruiter/interview"},
+                    // { icon: "el-icon-xiaoxi", name: "我的消息", href: "/recruiter/message"},
                     { icon: "el-icon-shezhi", name: "账号设置", href: "/recruiter/setting"}
                 ],
                 currentMenu: "账号设置",

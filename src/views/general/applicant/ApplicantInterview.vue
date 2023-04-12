@@ -27,7 +27,7 @@
           </div>
           <div class="interview" v-else>
             <el-timeline :class="{
-                'refused-timeline': currentNav === '已拒绝',
+                // 'refused-timeline': currentNav === '已拒绝',
                 'wait-timeline': currentNav === '待面试',
                 'over-timeline': currentNav === '面试已结束'
             }">
@@ -145,7 +145,7 @@
                     { icon: "el-icon-shezhi", name: "账号设置", href: "/applicant/setting"}
                 ],
                 currentMenu: "我的面试",
-                navList: ["全部","已拒绝","待面试","面试已结束"],
+                navList: ["全部","待面试","面试已结束"],
                 currentNav: "全部",
                 interviewList: [
                     {

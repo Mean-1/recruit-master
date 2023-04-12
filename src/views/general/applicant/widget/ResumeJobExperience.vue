@@ -10,7 +10,7 @@
             <el-button type="text" icon="el-icon-edit" class="edit"
                        @click="toggleEdit('editJobExperience',jobExperience, jobExperienceForm)">编辑</el-button>
             <el-button type="text" icon="el-icon-delete-solid" class="remove"
-                       @click="remove(jobExperience)">删除</el-button>
+                       @click="remove(jobExperience.experience_id)">删除</el-button>
             <img v-if="$store.state.onlyReadResume" class="icon"
                  :src="require('@/image/illustration/el-icon-company.png')"
                  style="width: 45px; height: 45px; float: left" />
@@ -97,8 +97,8 @@
         },
         data() {
             return {
-                jobExperienceList: [],
-                /* jobExperienceList: [
+                // jobExperienceList: [],
+                jobExperienceList: [
                     {
                         experience_id: "",
                         company_name: "迅雷网络",
@@ -121,7 +121,7 @@
                         start_date: "2016.09",
                         end_date: "2018.10",
                     }
-                ], */
+                ],
                 jobExperienceForm: {
                     experience_id: "",
                     resume_id: this.resume_id,
@@ -158,12 +158,12 @@
         methods: {
             async initData() {
                 const res = await this.$axios.request({
-                    url: `/job-experience/list/${this.resume_id}`,
+                    url: `/resume-experience/getExperienceByResumeId/${this.resume_id}`,
                     method: "get",
                 });
                 console.log(res);
-                if(res.msg === 'success'){
-                    this.jobExperienceList = Object.assign([],[],res.data.jobExperienceList);
+                if(res.message === 'success'){
+                    this.jobExperienceList = Object.assign([],[],res.obj);
                 }
                 // 获取完数据告知父组件已更新完毕,用于预览简历的异步通知
                 this.$emit("updatePart:resume", 1)
@@ -193,9 +193,8 @@
             // 工作经验删除
             async remove(jobExperience) {
                 const res = await this.$axios.request({
-                    url: `/job-experience/delete`,
-                    method: "delete",
-                    data: jobExperience
+                    url: `/resume-experience/deleteById/${jobExperience}`,
+                    method: "delete"
                 })
                 console.log(res);
                 this.initData();
@@ -205,12 +204,12 @@
                 this.$refs[formName].validate(async (valid) => {
                     if (valid) {
                         const res = await this.$axios.request({
-                            url: `/job-experience/saveOrUpdate`,
+                            url: `/resume-experience/saveOrUpdate`,
                             method: "post",
                             data: this.jobExperienceForm
                         });
                         console.log(res);
-                        if(res.msg === 'success'){
+                        if(res.message === 'success'){
                             this.initData();
                         }
                         this.$message.success("保存成功");

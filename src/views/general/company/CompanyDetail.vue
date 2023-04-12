@@ -40,7 +40,7 @@
         <div class="company-tab margin-20per">
           <el-link :href="'/company/detail?company_id=' + company.company_id" :class="{'is-active': $route.path === '/company/detail'}">公司主页</el-link>
           <el-link :href="'/company/job?company_id=' + company.company_id" :class="{'is-active': $route.path === '/company/job'}">在招职位</el-link>
-          <el-link :href="'/company/evaluation?company_id=' + company.company_id" :class="{'is-active': $route.path === '/company/evaluation'}">面试评价</el-link>
+<!--          <el-link :href="'/company/evaluation?company_id=' + company.company_id" :class="{'is-active': $route.path === '/company/evaluation'}">面试评价</el-link>-->
         </div>
       </div>
       <div class="company-main margin-20per">
@@ -291,6 +291,7 @@ export default {
                 this.company = Object.assign({},{},res);
                 // }
             };
+          //这里没有用到，交给下面方法写了
             let getHotRecruiter = async () => {
                 const res = await this.$axios.request({
                     url: `/company/infoHotRecruiter/${this.$route.query.company_id}`,
@@ -311,6 +312,8 @@ export default {
                     method: "get",
                 });
                 console.log(res);
+                let i =0;
+                let jid=0;
                 // if(res.msg === 'success'){
                     res.forEach(item =>{
                         item.job_id=item.id;
@@ -320,10 +323,14 @@ export default {
                         item.job_year=item.experience;
                         item.education=item.qualification;
                         //热门招聘官赋值
+                      if(item.users.id!=jid&&i<3){//判断
+                        console.log(jid);
                         item.recruiter_name=item.users.username;
                         item.recruiter_duty=item.interviewerDuty;
                         item.recruiter_avatar = require("@/image/avatar/" + item.users.avatar_url);
-
+                        jid=item.users.id;
+                        i=i+1;
+                      }
 
                     })
                     this.recruit_job = Object.assign([],[],res);

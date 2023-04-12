@@ -10,7 +10,7 @@
             <el-button type="text" icon="el-icon-edit" class="edit"
                        @click="toggleEdit('editProjectExperience',projectExperience, projectExperienceForm)">编辑</el-button>
             <el-button type="text" icon="el-icon-delete-solid" class="remove"
-                       @click="remove(projectExperience)">删除</el-button>
+                       @click="remove(projectExperience.project_id)">删除</el-button>
             <img v-if="$store.state.onlyReadResume" class="icon"
                  :src="require('@/image/illustration/el-icon-project.png')"
                  style="width: 45px; height: 45px; float: left" />
@@ -127,8 +127,8 @@
                 }
             };
             return {
-                projectExperienceList: [],
-                /* projectExperienceList: [
+                // projectExperienceList: [],
+                 projectExperienceList: [
                     {
                         project_id: "",
                         project_name: "万优招聘网站",
@@ -156,7 +156,7 @@
                         end_date: "2021.11",
                         project_url: "https://www.github.com"
                     }
-                ], */
+                ],
                 projectExperienceForm: {
                     project_id: "",
                     resume_id: this.resume_id,
@@ -201,12 +201,12 @@
         methods: {
             async initData() {
                 const res = await this.$axios.request({
-                    url: `/project-experience/list/${this.resume_id}`,
+                    url: `/resume-projects/getProjectsByResumeId/${this.resume_id}`,
                     method: "get",
                 });
                 console.log(res);
-                if(res.msg === 'success'){
-                    this.projectExperienceList = Object.assign([],[],res.data.projectExperienceList);
+                if(res.message === 'success'){
+                    this.projectExperienceList = Object.assign([],[],res.obj);
                 }
                 // 获取完数据告知父组件已更新完毕,用于预览简历的异步通知
                 this.$emit("updatePart:resume", 1)
@@ -235,24 +235,24 @@
             // 项目经验删除
             async remove(projectExperience) {
                 const res = await this.$axios.request({
-                    url: `/project-experience/delete`,
-                    method: "delete",
-                    data: projectExperience
+                    url: `/resume-projects/deleteById/${projectExperience}`,
+                    method: "delete"
                 })
                 console.log(res);
                 this.initData();
             },
             // 提交表单
             submitForm(formName, editDialog) {
+
                 this.$refs[formName].validate(async (valid) => {
                     if (valid) {
                         const res = await this.$axios.request({
-                            url: `/project-experience/saveOrUpdate`,
+                            url: `/resume-projects/saveOrUpdate`,
                             method: "post",
                             data: this.projectExperienceForm
                         });
                         console.log(res);
-                        if(res.msg === 'success'){
+                        if(res.message === 'success'){
                             this.initData();
                         }
                         this.$message.success("保存成功");

@@ -20,104 +20,104 @@
             <div class="work-table" v-if="!showResume">
               <!-- 顶部状态信息栏 -->
               <div class="recruiter-status">
-                <div class="status-wrapper">
-                  <div class="status-title">{{ status.applicant_num }}</div>
-                  <div class="status-content">候选人</div>
-                </div>
-                <div class="status-wrapper">
-                  <div class="status-title">{{ status.apply_num }}</div>
-                  <div class="status-content">新简历</div>
-                </div>
-                <div class="status-wrapper">
-                  <div class="status-title">{{ status.job_num }}</div>
-                  <div class="status-content">已发布职位</div>
-                </div>
-                <div class="status-wrapper">
-                  <div class="status-title">{{ status.feedback_rate }}%</div>
-                  <div class="status-content">简历反馈率</div>
-                </div>
-                <div class="status-wrapper">
-                  <div class="status-title">{{ status.login_date }}</div>
-                  <div class="status-content">最近登录</div>
-                </div>
+<!--                <div class="status-wrapper">-->
+<!--                  <div class="status-title">{{ status.applicant_num }}</div>-->
+<!--                  <div class="status-content">候选人</div>-->
+<!--                </div>-->
+<!--                <div class="status-wrapper">-->
+<!--                  <div class="status-title">{{ status.apply_num }}</div>-->
+<!--                  <div class="status-content">新简历</div>-->
+<!--                </div>-->
+<!--                <div class="status-wrapper">-->
+<!--                  <div class="status-title">{{ status.job_num }}</div>-->
+<!--                  <div class="status-content">已发布职位</div>-->
+<!--                </div>-->
+<!--                <div class="status-wrapper">-->
+<!--                  <div class="status-title">{{ status.feedback_rate }}%</div>-->
+<!--                  <div class="status-content">简历反馈率</div>-->
+<!--                </div>-->
+<!--                <div class="status-wrapper">-->
+<!--                  <div class="status-title">{{ status.login_date }}</div>-->
+<!--                  <div class="status-content">最近登录</div>-->
+<!--                </div>-->
                 <el-button type="primary" class="add-job-btn" @click="$router.push('/recruiter/post')">发布新职位</el-button>
               </div>
               <!-- 近期面试 -->
-              <div class="recent-interview">
-                <h2>
-                  <span>近期面试</span>
-                  <span>（共{{ recent_interview_num }}场）</span>
-                  <el-link href="/recruiter/interview">查看更多<i class="el-icon-arrow-right"></i> </el-link>
-                </h2>
-                <div class="content" v-if="interviewList.length === 0">
-                  <el-empty :image-size="200"></el-empty>
-                </div>
-                <div class="content" v-else>
-                  <el-timeline>
-                    <el-timeline-item
-                          v-for="(interview,index) in interviewList"
-                          :key="interview.applicant_name + index"
-                          icon="el-icon-yuanhuan"
-                          :timestamp="interview.interview_date"
-                          hide-timestamp
-                    >
-                      <div class="timeStamp">
-                        <div class="date">{{ splitTimeStamp(interview.interview_date)[0] }}</div>
-                        <div class="time">{{ splitTimeStamp(interview.interview_date)[1] }}</div>
-                      </div>
-                      <div class="interview-wrapper">
-                        <div class="applicant-avatar">
-                          <img :src="interview.applicant_avatar" :alt="interview.applicant_name"
-                               style="width: 65px; height: 65px;"/>
-                        </div>
-                        <div class="interview-content">
-                          <div class="applicant">
-                            <p>
-                              <span class="applicant-name">{{ interview.applicant_name }}</span>
-                              <el-divider direction="vertical"></el-divider>
-                              <span>{{ interview.applicant_sex }}</span>
-                              <el-divider direction="vertical"></el-divider>
-                              <span>{{ interview.applicant_identity }}</span>
-                              <el-button round @click="showResume = true">查看简历</el-button>
-                            </p>
-                            <p>
-                              <span>{{ interview.applicant_age }}岁</span>
-                              <el-divider direction="vertical"></el-divider>
-                              <span>{{ interview.working_year }}经验</span>
-                              <el-divider direction="vertical"></el-divider>
-                              <span>{{ interview.applicant_education }}</span>
-                              <el-divider direction="vertical"></el-divider>
-                              <span>{{ interview.applicant_city }}</span>
-                            </p>
-                            <p>
-                              <span class="icon"><i class="el-icon-phone"></i></span>
-                              <span>{{ interview.applicant_tel }}</span>
-                            </p>
-                          </div>
-                          <div class="job">
-                            <el-link class="job-duty" href="/profession/detail">{{ interview.job_duty }}</el-link>
-                            <p>
-                              <span class="job-salary">{{ interview.job_salary }}</span>
-                              <el-divider direction="vertical"></el-divider>
-                              <span>{{ interview.job_year }}</span>
-                              <el-divider direction="vertical"></el-divider>
-                              <span>{{ interview.education }}</span>
-                            </p>
-                            <p v-if="interview.interview_status === '1'">已发送面试地址</p>
-                            <p v-else-if="interview.interview_status === '0'">已取消面试</p>
-                            <p v-else-if="interview.interview_status === '2'">面试已结束</p>
-                          </div>
-                        </div>
-                      </div>
-                    </el-timeline-item>
-                  </el-timeline>
-                </div>
-              </div>
+<!--              <div class="recent-interview">-->
+<!--                <h2>-->
+<!--                  <span>近期面试</span>-->
+<!--                  <span>（共{{ recent_interview_num }}场）</span>-->
+<!--                  <el-link href="/recruiter/interview">查看更多<i class="el-icon-arrow-right"></i> </el-link>-->
+<!--                </h2>-->
+<!--                <div class="content" v-if="interviewList.length === 0">-->
+<!--                  <el-empty :image-size="200"></el-empty>-->
+<!--                </div>-->
+<!--                <div class="content" v-else>-->
+<!--                  <el-timeline>-->
+<!--                    <el-timeline-item-->
+<!--                          v-for="(interview,index) in interviewList"-->
+<!--                          :key="interview.applicant_name + index"-->
+<!--                          icon="el-icon-yuanhuan"-->
+<!--                          :timestamp="interview.interview_date"-->
+<!--                          hide-timestamp-->
+<!--                    >-->
+<!--                      <div class="timeStamp">-->
+<!--                        <div class="date">{{ splitTimeStamp(interview.interview_date)[0] }}</div>-->
+<!--                        <div class="time">{{ splitTimeStamp(interview.interview_date)[1] }}</div>-->
+<!--                      </div>-->
+<!--                      <div class="interview-wrapper">-->
+<!--                        <div class="applicant-avatar">-->
+<!--                          <img :src="interview.applicant_avatar" :alt="interview.applicant_name"-->
+<!--                               style="width: 65px; height: 65px;"/>-->
+<!--                        </div>-->
+<!--                        <div class="interview-content">-->
+<!--                          <div class="applicant">-->
+<!--                            <p>-->
+<!--                              <span class="applicant-name">{{ interview.applicant_name }}</span>-->
+<!--                              <el-divider direction="vertical"></el-divider>-->
+<!--                              <span>{{ interview.applicant_sex }}</span>-->
+<!--                              <el-divider direction="vertical"></el-divider>-->
+<!--                              <span>{{ interview.applicant_identity }}</span>-->
+<!--                              <el-button round @click="showResume = true">查看简历</el-button>-->
+<!--                            </p>-->
+<!--                            <p>-->
+<!--                              <span>{{ interview.applicant_age }}岁</span>-->
+<!--                              <el-divider direction="vertical"></el-divider>-->
+<!--                              <span>{{ interview.working_year }}经验</span>-->
+<!--                              <el-divider direction="vertical"></el-divider>-->
+<!--                              <span>{{ interview.applicant_education }}</span>-->
+<!--                              <el-divider direction="vertical"></el-divider>-->
+<!--                              <span>{{ interview.applicant_city }}</span>-->
+<!--                            </p>-->
+<!--                            <p>-->
+<!--                              <span class="icon"><i class="el-icon-phone"></i></span>-->
+<!--                              <span>{{ interview.applicant_tel }}</span>-->
+<!--                            </p>-->
+<!--                          </div>-->
+<!--                          <div class="job">-->
+<!--                            <el-link class="job-duty" href="/profession/detail">{{ interview.job_duty }}</el-link>-->
+<!--                            <p>-->
+<!--                              <span class="job-salary">{{ interview.job_salary }}</span>-->
+<!--                              <el-divider direction="vertical"></el-divider>-->
+<!--                              <span>{{ interview.job_year }}</span>-->
+<!--                              <el-divider direction="vertical"></el-divider>-->
+<!--                              <span>{{ interview.education }}</span>-->
+<!--                            </p>-->
+<!--                            <p v-if="interview.interview_status === '1'">已发送面试地址</p>-->
+<!--                            <p v-else-if="interview.interview_status === '0'">已取消面试</p>-->
+<!--                            <p v-else-if="interview.interview_status === '2'">面试已结束</p>-->
+<!--                          </div>-->
+<!--                        </div>-->
+<!--                      </div>-->
+<!--                    </el-timeline-item>-->
+<!--                  </el-timeline>-->
+<!--                </div>-->
+<!--              </div>-->
               <!-- 最新投递 -->
               <div class="recent-apply">
                 <h2>
                   <span>最新投递</span>
-                  <span>（共{{ recent_apply_num }}份）</span>
+<!--                  <span>（共{{ recent_apply_num }}份）</span>-->
                   <el-link href="/recruiter/resume">查看更多<i class="el-icon-arrow-right"></i> </el-link>
                 </h2>
                 <div class="content" v-if="applyList.length === 0">
@@ -158,7 +158,7 @@
                             <p v-else>暂无学业信息</p>
                           </div>
                           <div class="job">
-                            <el-link class="job-duty" href="/profession/detail">{{ apply.job_duty }}</el-link>
+                            <el-link class="job-duty" :href="'/profession/detail?job_id='+apply.job_id">{{ apply.job_duty }}</el-link>
                             <p>
                               <span class="job-salary">{{ apply.job_salary }}</span>
                               <el-divider direction="vertical"></el-divider>
@@ -169,7 +169,7 @@
                           </div>
                           <div class="apply-status">
                             <p>投递时间</p>
-                            <p>{{ apply.create_date }}</p>
+                            <p>{{ apply.create_date[0] }}年{{apply.create_date[1]}}月{{apply.create_date[2]}}日</p>
                           </div>
                         </div>
                       </div>
@@ -202,8 +202,8 @@
                     { icon: "el-icon-gongzuotai", name: "工作台", href: "/recruiter"},
                     { icon: "el-icon-zhiwei", name: "职位管理", href: "/recruiter/job"},
                     { icon: "el-icon-jianli", name: "简历处理", href: "/recruiter/resume"},
-                    { icon: "el-icon-mianshi", name: "面试相关", href: "/recruiter/interview"},
-                    { icon: "el-icon-xiaoxi", name: "我的消息", href: "/recruiter/message"},
+                    // { icon: "el-icon-mianshi", name: "面试相关", href: "/recruiter/interview"},
+                    // { icon: "el-icon-xiaoxi", name: "我的消息", href: "/recruiter/message"},
                     { icon: "el-icon-shezhi", name: "账号设置", href: "/recruiter/setting"}
                 ],
                 currentMenu: "工作台",
@@ -217,78 +217,78 @@
                 },*/
                 // recent_interview_num: 0,
                 // interviewList: [],
-                recent_interview_num: 8,
-                interviewList: [
-                    {
-                        applicant_avatar: require("@/image/avatar/applicant_zhang.png"),
-                        applicant_name: "张三",
-                        applicant_sex: "男",
-                        applicant_identity: "学生",
-                        applicant_age: 22,
-                        working_year: "1年",
-                        applicant_education: "本科",
-                        applicant_city: "深圳",
-                        applicant_tel: "13522342234",
-                        job_duty: "前端工程师",
-                        job_salary: "10-15K",
-                        job_year: "1年以上",
-                        education: "本科",
-                        interview_date: "2022-3-15 14:00",
-                        interview_status: "1",
-                    },
-                    {
-                        applicant_avatar: require("@/image/avatar/applicant_huang.png"),
-                        applicant_name: "黄瑾",
-                        applicant_sex: "女",
-                        applicant_identity: "学生",
-                        applicant_age: 21,
-                        working_year: "暂无",
-                        applicant_education: "本科",
-                        applicant_city: "深圳",
-                        applicant_tel: "13542684268",
-                        job_duty: "Web前端开发工程师",
-                        job_salary: "5-8K",
-                        job_year: "经验不限",
-                        education: "本科",
-                        interview_date: "2022-3-18 10:00",
-                        interview_status: "1",
-                    },
-                    {
-                        applicant_avatar: require("@/image/avatar/applicant_tong.png"),
-                        applicant_name: "童景程",
-                        applicant_sex: "男",
-                        applicant_identity: "职场人士",
-                        applicant_age: 25,
-                        working_year: "2年",
-                        applicant_education: "本科",
-                        applicant_city: "深圳",
-                        applicant_tel: "15722802280",
-                        job_duty: "前端开发工程师",
-                        job_salary: "12-20K",
-                        job_year: "2年",
-                        education: "本科",
-                        interview_date: "2022-3-21 16:30",
-                        interview_status: "0",
-                    },
-                    {
-                        applicant_avatar: require("@/image/avatar/applicant_wei.png"),
-                        applicant_name: "魏晴雅",
-                        applicant_sex: "女",
-                        applicant_identity: "职场人士",
-                        applicant_age: 27,
-                        working_year: "3年",
-                        applicant_education: "本科",
-                        applicant_city: "广州",
-                        applicant_tel: "13855665566",
-                        job_duty: "内容运营",
-                        job_salary: "12-20K",
-                        job_year: "2年以上",
-                        education: "本科",
-                        interview_date: "2022-3-24 16:30",
-                        interview_status: "2",
-                    },
-                ],
-                recent_apply_num: 0,
+                // recent_interview_num: 8,
+                // interviewList: [
+                //     {
+                //         applicant_avatar: require("@/image/avatar/applicant_zhang.png"),
+                //         applicant_name: "张三",
+                //         applicant_sex: "男",
+                //         applicant_identity: "学生",
+                //         applicant_age: 22,
+                //         working_year: "1年",
+                //         applicant_education: "本科",
+                //         applicant_city: "深圳",
+                //         applicant_tel: "13522342234",
+                //         job_duty: "前端工程师",
+                //         job_salary: "10-15K",
+                //         job_year: "1年以上",
+                //         education: "本科",
+                //         interview_date: "2022-3-15 14:00",
+                //         interview_status: "1",
+                //     },
+                //     {
+                //         applicant_avatar: require("@/image/avatar/applicant_huang.png"),
+                //         applicant_name: "黄瑾",
+                //         applicant_sex: "女",
+                //         applicant_identity: "学生",
+                //         applicant_age: 21,
+                //         working_year: "暂无",
+                //         applicant_education: "本科",
+                //         applicant_city: "深圳",
+                //         applicant_tel: "13542684268",
+                //         job_duty: "Web前端开发工程师",
+                //         job_salary: "5-8K",
+                //         job_year: "经验不限",
+                //         education: "本科",
+                //         interview_date: "2022-3-18 10:00",
+                //         interview_status: "1",
+                //     },
+                //     {
+                //         applicant_avatar: require("@/image/avatar/applicant_tong.png"),
+                //         applicant_name: "童景程",
+                //         applicant_sex: "男",
+                //         applicant_identity: "职场人士",
+                //         applicant_age: 25,
+                //         working_year: "2年",
+                //         applicant_education: "本科",
+                //         applicant_city: "深圳",
+                //         applicant_tel: "15722802280",
+                //         job_duty: "前端开发工程师",
+                //         job_salary: "12-20K",
+                //         job_year: "2年",
+                //         education: "本科",
+                //         interview_date: "2022-3-21 16:30",
+                //         interview_status: "0",
+                //     },
+                //     {
+                //         applicant_avatar: require("@/image/avatar/applicant_wei.png"),
+                //         applicant_name: "魏晴雅",
+                //         applicant_sex: "女",
+                //         applicant_identity: "职场人士",
+                //         applicant_age: 27,
+                //         working_year: "3年",
+                //         applicant_education: "本科",
+                //         applicant_city: "广州",
+                //         applicant_tel: "13855665566",
+                //         job_duty: "内容运营",
+                //         job_salary: "12-20K",
+                //         job_year: "2年以上",
+                //         education: "本科",
+                //         interview_date: "2022-3-24 16:30",
+                //         interview_status: "2",
+                //     },
+                // ],
+                // recent_apply_num: 0,
                 applyList: [],
                 // recent_apply_num: 14,
                 /*applyList: [
@@ -374,16 +374,16 @@
         },
         methods: {
             initData() {
-                let getStatus = async () => {
-                    const res = await this.$axios.request({
-                        url: `/recruiter/getStatus/${this.$store.state.login_id}`,
-                        method: "get"
-                    })
-                    console.log(res);
-                    if(res.msg === "success") {
-                        this.status = Object.assign({},{},res.data.status);
-                    }
-                }
+                // let getStatus = async () => {
+                //     const res = await this.$axios.request({
+                //         url: `/recruiter/getStatus/${this.$store.state.login_id}`,
+                //         method: "get"
+                //     })
+                //     console.log(res);
+                //     if(res.msg === "success") {
+                //         this.status = Object.assign({},{},res.data.status);
+                //     }
+                // }
                 // let getInterviewList = async () => {
                 //     const res = await this.$axios.request({
                 //         url: `/recruiter/list/${this.$store.state.login_id}`,
@@ -398,21 +398,39 @@
                 //         this.interviewList = res.data.interviewList;
                 //     }
                 // }
-                let getApplyList = async () => {
-                    const res = await this.$axios.request({
-                        url: `/recruiter/list/${this.$store.state.login_id}`,
-                        method: "get"
-                    })
-                    console.log(res);
-                    if(res.msg === "success") {
-                        res.data.applyList.forEach(item => {
-                            item.applicant_avatar = require("@/image/avatar/" + item.applicant_avatar);
-                        })
-                        this.recent_apply_num = res.data.recent_apply_num;
-                        this.applyList = res.data.applyList;
-                    }
-                }
-                this.$axios.all([getStatus(),getApplyList()])
+
+                this.$axios.all([this.getApplyList()])
+            },
+            async getApplyList () {
+              const res = await this.$axios.request({
+                url: `/user-job-applycation/getLittleResume/${JSON.parse(window.sessionStorage.getItem('user')).id}`,
+                method: "get"
+              })
+              console.log(res);
+
+              res.forEach(item => {
+                item.applicant_id = item.resume.id;
+                item.applicant_avatar = require("@/image/avatar/" + item.resume_baseinfo.applicant_avatar);
+                item.applicant_name = item.resume_baseinfo.applicant_name;
+                item.applicant_sex = item.resume_baseinfo.applicant_sex;
+                item.applicant_identity = item.resume_baseinfo.applicant_identity;
+                item.applicant_age = item.resume_baseinfo.applicant_age;
+                item.working_year = item.resume_baseinfo.working_year;
+                item.applicant_education = item.resume_baseinfo.applicant_education;
+                item.applicant_city = item.resume_baseinfo.applicant_city;
+                item.job_duty = item.job.name;
+                item.school_name = item.resume_education.school_name;
+                item.major = item.resume_education.major;
+                item.job_salary = item.job.salary;
+                item.job_year = item.job.experience;
+                item.job_id = item.job.id;
+                item.education = item.job.qualification;
+
+              })
+              console.log(res)
+              // this.recent_apply_num = res.data.recent_apply_num;
+              this.applyList = Object.assign([],[],res);
+
             },
             menuSelect(name) {
                 this.currentMenu = name;

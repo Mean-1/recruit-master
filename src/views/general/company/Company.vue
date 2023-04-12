@@ -217,7 +217,7 @@ export default {
                 item.company_size = item.c_size;
                 item.company_description = item.description;
             });
-            this.total = res.data.total;
+            this.total = res.total;
             this.companyList = Object.assign([], [], res.data);
 
         },

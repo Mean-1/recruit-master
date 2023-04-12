@@ -29,7 +29,7 @@
     import SymbolIcon from "@/components/SymbolIcon.vue";
     import Resume from "./widget/Resume.vue";
     export default {
-        name: "ApplicantSetting",
+        name: "ApplicantResume",
         components: {
             GeneralTopBar,
             GeneralFooter,

@@ -17,15 +17,17 @@
       <div class="main-content">
         <h2>
           <span>职位收藏</span>
-          <span>（共{{ collect_num }}条）</span>
+<!--          <span>（共{{ collect_num }}条）</span>-->
           <el-dropdown @command="handleCommand">
             <span class="el-dropdown-link">
               <i class="el-icon-more"></i>
             </span>
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item command="全选">全选</el-dropdown-item>
-              <el-dropdown-item command="一键删除">一键删除</el-dropdown-item>
+              <el-dropdown-item command="一键删除" >一键删除</el-dropdown-item>
               <el-dropdown-item command="一键投递">一键投递</el-dropdown-item>
+<!--              <el-button round class="passive-btn" @click="deleteJobList(checkCollect)">一键删除</el-button>-->
+<!--              <el-button round @click="updateStatus(checkCollect)">一键投递</el-button>-->
             </el-dropdown-menu>
           </el-dropdown>
         </h2>
@@ -41,7 +43,7 @@
                      v-model="checkCollect"/>
               <div class="collect-job">
                 <div class="job-request">
-                  <el-link href="/profession/detail">
+                  <el-link :href="'/profession/detail?job_id=' + collect.collect_id">
                     <span class="job-duty">{{ collect.job_duty }}</span>
                     <span class="job-salary">{{ collect.job_salary }}</span>
                   </el-link>
@@ -54,11 +56,11 @@
                   </p>
                 </div>
                 <div class="company-info">
-                  <el-link href="/company/detail" class="company-logo">
+                  <el-link :href=" '/company/detail?company_id=' + collect.company_id " class="company-logo">
                     <img :src="collect.company_logo" :alt="collect.company_name"
                          style="width: 56px; height: 56px; margin-right: 16px"/>
                   </el-link>
-                  <el-link href="/company/detail" class="company-name">{{ collect.company_name}}</el-link>
+                  <el-link :href=" '/company/detail?company_id=' + collect.company_id " class="company-name">{{ collect.company_name}}</el-link>
                   <p class="company-description">
                     <span class="company-tag" :title="collect.company_tag">{{ collect.company_tag}}</span>
                     <el-divider direction="vertical"></el-divider>
@@ -75,7 +77,7 @@
             <el-pagination
                   @current-change="handleCurrentChange"
                   :current-page.sync="currentPage"
-                  :page-size="100"
+                  :page-size="pageSize"
                   background
                   layout="prev, pager, next"
                   :total="total">
@@ -112,7 +114,8 @@
                 collect_num: 18,
                 collectList: [
                     {
-                        collect_id: 1,
+                        collect_id: 1,//job_id
+                        company_id:"",
                         job_duty: "前端开发工程师",
                         job_salary: "12-24K·14薪",
                         office_city: "深圳",
@@ -123,183 +126,260 @@
                         company_tag: "软件服务",
                         company_type: "民营公司",
                         company_size: "15-50人",
-                        create_date: "2022-3-21 21:02",
-                        apply_status: 0
+                        // create_date: "2022-3-21 21:02",
+                        // apply_status: 0
                     },
-                    {
-                        collect_id: 2,
-                        job_duty: "web前端开发工程师",
-                        job_salary: "7-10K",
-                        office_city: "深圳",
-                        job_year: "1年以上",
-                        education: "本科",
-                        company_logo: require("@/image/company/guojiang.jpg"),
-                        company_name: "果酱时代",
-                        company_tag: "MCN | 直播平台",
-                        company_type: "合资公司",
-                        company_size: "50-150人",
-                        create_date: "2022-3-21 20:14",
-                        apply_status: 1
-                    },
-                    {
-                        collect_id: 3,
-                        job_duty: "前端开发工程师",
-                        job_salary: "13-26K",
-                        office_city: "深圳",
-                        job_year: "经验不限",
-                        education: "不限",
-                        company_logo: require("@/image/company/keruier.jpg"),
-                        company_name: "科瑞尔人力资源服务",
-                        company_tag: "生活服务，智能硬件",
-                        company_type: "上市公司",
-                        company_size: "2000人以上",
-                        create_date: "2022-3-21 21:02",
-                        apply_status: 2
-                    },
-                    {
-                        collect_id: 4,
-                        job_duty: "中高级前端开发工程师",
-                        job_salary: "30-50K",
-                        office_city: "深圳",
-                        job_year: "5年以上",
-                        education: "大专及以上",
-                        company_logo: require("@/image/company/meituan.jpg"),
-                        company_name: "美团",
-                        company_tag: "消费生活",
-                        company_type: "上市公司",
-                        company_size: "2000人以上",
-                        create_date: "2022-3-21 19:55",
-                        apply_status: 3
-                    },
-                    {
-                        collect_id: 5,
-                        job_duty: "前端开发工程师",
-                        job_salary: "8-14K",
-                        office_city: "深圳",
-                        job_year: "3-5年",
-                        education: "大专及以上",
-                        company_logo: require("@/image/company/youxikexue.jpg"),
-                        company_name: "游戏科学",
-                        company_tag: "游戏开发",
-                        company_type: "民营公司",
-                        company_size: "50-150人",
-                        create_date: "2022-3-21 19:33",
-                        apply_status: 4
-                    },
-                    {
-                        collect_id: 6,
-                        job_duty: "Web前端开发工程师",
-                        job_salary: "5-10K",
-                        office_city: "深圳",
-                        job_year: "1年及以上",
-                        education: "大专及以上",
-                        company_logo: require("@/image/company/yunmai.jpg"),
-                        company_name: "云麦网络",
-                        company_tag: "MCN | 直播平台",
-                        company_type: "创业型公司",
-                        company_size: "15-50人",
-                        create_date: "2022-3-21 18:45",
-                        apply_status: 5
-                    },
-                    {
-                        collect_id: 7,
-                        job_duty: "前端开发工程师",
-                        job_salary: "12-24K·14薪",
-                        office_city: "深圳",
-                        job_year: "2年以上",
-                        education: "不限",
-                        company_logo: require("@/image/company/siwei.jpg"),
-                        company_name: "思维巡航",
-                        company_tag: "软件服务",
-                        company_type: "民营公司",
-                        company_size: "15-50人",
-                        create_date: "2022-3-21 21:02",
-                        apply_status: 0
-                    },
-                    {
-                        collect_id: 8,
-                        job_duty: "web前端开发工程师",
-                        job_salary: "7-10K",
-                        office_city: "深圳",
-                        job_year: "1年以上",
-                        education: "本科",
-                        company_logo: require("@/image/company/guojiang.jpg"),
-                        company_name: "果酱时代",
-                        company_tag: "MCN | 直播平台",
-                        company_type: "合资公司",
-                        company_size: "50-150人",
-                        create_date: "2022-3-21 20:14",
-                        apply_status: 1
-                    },
-                    {
-                        collect_id: 9,
-                        job_duty: "前端开发工程师",
-                        job_salary: "13-26K",
-                        office_city: "深圳",
-                        job_year: "经验不限",
-                        education: "不限",
-                        company_logo: require("@/image/company/keruier.jpg"),
-                        company_name: "科瑞尔人力资源服务",
-                        company_tag: "生活服务，智能硬件",
-                        company_type: "上市公司",
-                        company_size: "2000人以上",
-                        create_date: "2022-3-21 21:02",
-                        apply_status: 2
-                    },
-                    {
-                        collect_id: 10,
-                        job_duty: "中高级前端开发工程师",
-                        job_salary: "30-50K",
-                        office_city: "深圳",
-                        job_year: "5年以上",
-                        education: "大专及以上",
-                        company_logo: require("@/image/company/meituan.jpg"),
-                        company_name: "美团",
-                        company_tag: "消费生活",
-                        company_type: "上市公司",
-                        company_size: "2000人以上",
-                        create_date: "2022-3-21 19:55",
-                        apply_status: 3
-                    },
-                    {
-                        collect_id: 11,
-                        job_duty: "前端开发工程师",
-                        job_salary: "8-14K",
-                        office_city: "深圳",
-                        job_year: "3-5年",
-                        education: "大专及以上",
-                        company_logo: require("@/image/company/youxikexue.jpg"),
-                        company_name: "游戏科学",
-                        company_tag: "游戏开发",
-                        company_type: "民营公司",
-                        company_size: "50-150人",
-                        create_date: "2022-3-21 19:33",
-                        apply_status: 4
-                    },
-                    {
-                        collect_id: 12,
-                        job_duty: "Web前端开发工程师",
-                        job_salary: "5-10K",
-                        office_city: "深圳",
-                        job_year: "1年及以上",
-                        education: "大专及以上",
-                        company_logo: require("@/image/company/yunmai.jpg"),
-                        company_name: "云麦网络",
-                        company_tag: "MCN | 直播平台",
-                        company_type: "创业型公司",
-                        company_size: "15-50人",
-                        create_date: "2022-3-21 18:45",
-                        apply_status: 5
-                    },
+                    // {
+                    //     collect_id: 2,
+                    //     job_duty: "web前端开发工程师",
+                    //     job_salary: "7-10K",
+                    //     office_city: "深圳",
+                    //     job_year: "1年以上",
+                    //     education: "本科",
+                    //     company_logo: require("@/image/company/guojiang.jpg"),
+                    //     company_name: "果酱时代",
+                    //     company_tag: "MCN | 直播平台",
+                    //     company_type: "合资公司",
+                    //     company_size: "50-150人",
+                    //     create_date: "2022-3-21 20:14",
+                    //     apply_status: 1
+                    // },
+                    // {
+                    //     collect_id: 3,
+                    //     job_duty: "前端开发工程师",
+                    //     job_salary: "13-26K",
+                    //     office_city: "深圳",
+                    //     job_year: "经验不限",
+                    //     education: "不限",
+                    //     company_logo: require("@/image/company/keruier.jpg"),
+                    //     company_name: "科瑞尔人力资源服务",
+                    //     company_tag: "生活服务，智能硬件",
+                    //     company_type: "上市公司",
+                    //     company_size: "2000人以上",
+                    //     create_date: "2022-3-21 21:02",
+                    //     apply_status: 2
+                    // },
+                    // {
+                    //     collect_id: 4,
+                    //     job_duty: "中高级前端开发工程师",
+                    //     job_salary: "30-50K",
+                    //     office_city: "深圳",
+                    //     job_year: "5年以上",
+                    //     education: "大专及以上",
+                    //     company_logo: require("@/image/company/meituan.jpg"),
+                    //     company_name: "美团",
+                    //     company_tag: "消费生活",
+                    //     company_type: "上市公司",
+                    //     company_size: "2000人以上",
+                    //     create_date: "2022-3-21 19:55",
+                    //     apply_status: 3
+                    // },
+                    // {
+                    //     collect_id: 5,
+                    //     job_duty: "前端开发工程师",
+                    //     job_salary: "8-14K",
+                    //     office_city: "深圳",
+                    //     job_year: "3-5年",
+                    //     education: "大专及以上",
+                    //     company_logo: require("@/image/company/youxikexue.jpg"),
+                    //     company_name: "游戏科学",
+                    //     company_tag: "游戏开发",
+                    //     company_type: "民营公司",
+                    //     company_size: "50-150人",
+                    //     create_date: "2022-3-21 19:33",
+                    //     apply_status: 4
+                    // },
+                    // {
+                    //     collect_id: 6,
+                    //     job_duty: "Web前端开发工程师",
+                    //     job_salary: "5-10K",
+                    //     office_city: "深圳",
+                    //     job_year: "1年及以上",
+                    //     education: "大专及以上",
+                    //     company_logo: require("@/image/company/yunmai.jpg"),
+                    //     company_name: "云麦网络",
+                    //     company_tag: "MCN | 直播平台",
+                    //     company_type: "创业型公司",
+                    //     company_size: "15-50人",
+                    //     create_date: "2022-3-21 18:45",
+                    //     apply_status: 5
+                    // },
+                    // {
+                    //     collect_id: 7,
+                    //     job_duty: "前端开发工程师",
+                    //     job_salary: "12-24K·14薪",
+                    //     office_city: "深圳",
+                    //     job_year: "2年以上",
+                    //     education: "不限",
+                    //     company_logo: require("@/image/company/siwei.jpg"),
+                    //     company_name: "思维巡航",
+                    //     company_tag: "软件服务",
+                    //     company_type: "民营公司",
+                    //     company_size: "15-50人",
+                    //     create_date: "2022-3-21 21:02",
+                    //     apply_status: 0
+                    // },
+                    // {
+                    //     collect_id: 8,
+                    //     job_duty: "web前端开发工程师",
+                    //     job_salary: "7-10K",
+                    //     office_city: "深圳",
+                    //     job_year: "1年以上",
+                    //     education: "本科",
+                    //     company_logo: require("@/image/company/guojiang.jpg"),
+                    //     company_name: "果酱时代",
+                    //     company_tag: "MCN | 直播平台",
+                    //     company_type: "合资公司",
+                    //     company_size: "50-150人",
+                    //     create_date: "2022-3-21 20:14",
+                    //     apply_status: 1
+                    // },
+                    // {
+                    //     collect_id: 9,
+                    //     job_duty: "前端开发工程师",
+                    //     job_salary: "13-26K",
+                    //     office_city: "深圳",
+                    //     job_year: "经验不限",
+                    //     education: "不限",
+                    //     company_logo: require("@/image/company/keruier.jpg"),
+                    //     company_name: "科瑞尔人力资源服务",
+                    //     company_tag: "生活服务，智能硬件",
+                    //     company_type: "上市公司",
+                    //     company_size: "2000人以上",
+                    //     create_date: "2022-3-21 21:02",
+                    //     apply_status: 2
+                    // },
+                    // {
+                    //     collect_id: 10,
+                    //     job_duty: "中高级前端开发工程师",
+                    //     job_salary: "30-50K",
+                    //     office_city: "深圳",
+                    //     job_year: "5年以上",
+                    //     education: "大专及以上",
+                    //     company_logo: require("@/image/company/meituan.jpg"),
+                    //     company_name: "美团",
+                    //     company_tag: "消费生活",
+                    //     company_type: "上市公司",
+                    //     company_size: "2000人以上",
+                    //     create_date: "2022-3-21 19:55",
+                    //     apply_status: 3
+                    // },
+                    // {
+                    //     collect_id: 11,
+                    //     job_duty: "前端开发工程师",
+                    //     job_salary: "8-14K",
+                    //     office_city: "深圳",
+                    //     job_year: "3-5年",
+                    //     education: "大专及以上",
+                    //     company_logo: require("@/image/company/youxikexue.jpg"),
+                    //     company_name: "游戏科学",
+                    //     company_tag: "游戏开发",
+                    //     company_type: "民营公司",
+                    //     company_size: "50-150人",
+                    //     create_date: "2022-3-21 19:33",
+                    //     apply_status: 4
+                    // },
+                    // {
+                    //     collect_id: 12,
+                    //     job_duty: "Web前端开发工程师",
+                    //     job_salary: "5-10K",
+                    //     office_city: "深圳",
+                    //     job_year: "1年及以上",
+                    //     education: "大专及以上",
+                    //     company_logo: require("@/image/company/yunmai.jpg"),
+                    //     company_name: "云麦网络",
+                    //     company_tag: "MCN | 直播平台",
+                    //     company_type: "创业型公司",
+                    //     company_size: "15-50人",
+                    //     create_date: "2022-3-21 18:45",
+                    //     apply_status: 5
+                    // },
                 ],
                 checkCollect: [],
                 currentPage: 1,
+                pageSize: 6,
                 total: 1000,
             }
         },
+        created() {
+          this.initData();
+        },
         methods: {
+            async initData() {
+              const res = await this.$axios.request({
+                url: `/user-job-collection/getCollectionJobInfo`,
+                method: "get",
+                params: {
+                  currentPage: this.currentPage,
+                  pageSize: this.pageSize,
+                  uid: JSON.parse(window.sessionStorage.getItem('user')).id
+                }
+              })
+              console.log(res);
+              // if(res.message === "success") {
+              res.data.forEach(item => {
+                item.company_id = item.company.id;
+                item.collect_id = item.job.id;
+                item.company_logo = require("@/image/company/" + item.company.icon);
+                item.job_duty = item.job.name;
+                item.job_salary = item.job.salary;
+                item.office_city = item.company.address;
+                item.job_year = item.job.experience;
+                item.education = item.job.qualification;
+                item.company_name = item.company.name;
+                item.company_tag = item.company.tag;
+                item.company_type = item.company.type;
+                item.company_size = item.company.size;
+
+              });
+              this.total = res.total;
+              this.collectList = Object.assign([], [], res.data);
+              // }
+            },
             menuSelect(name) {
                 this.currentMenu = name;
+            },
+            async deleteJobList(idArray,uid) {
+              console.log(idArray)
+              const res = await this.$axios.request({
+                url: `/user-job-collection/deleteLotCollection`,
+                method: "delete",
+                data: {
+                  selectedJobIds: idArray,
+                  uid: uid
+                  // status: 0  //这个参数没用，只是为了符合后端对象的传参格式
+                }
+              })
+              console.log(res);
+              if(res.message == "success") {
+                this.$message.success("收藏职位删除成功!");
+                await this.initData();
+              }else {
+                this.$message.success("收藏职位删除失败！");
+              }
+            },
+            // 收藏职位批量投递（单个也传递数组形式）
+            async applyColleJob(idArray, uid) {
+              // console.log("####")
+              // console.log(JSON.stringify(idArray))
+              // console.log(typeof idArray)
+              console.log(idArray)
+              console.log(uid)
+              const res = await this.$axios.request({
+                url: "/user-job-applycation/addLotApply",
+                method: "post",
+                data: {
+                  selectedJobIds: idArray,
+                  uid: uid
+                }
+              })
+              console.log(res);
+              if(res.message == "success") {
+                this.$message.success("职位已成功投递！");
+                await this.initData();
+              } else {
+                this.$message.error("职位投递失败！");
+              }
             },
             handleCommand(command) {
                 console.log(command)
@@ -315,8 +395,11 @@
                         }
                         break;
                     case "一键投递":
+                        console.log(this.checkCollect);
+                        this.applyColleJob(this.checkCollect,JSON.parse(window.sessionStorage.getItem('user')).id)
                         break;
                     case "一键删除":
+                        this.deleteJobList(this.checkCollect,JSON.parse(window.sessionStorage.getItem('user')).id)
                         break;
                 }
             },
@@ -324,8 +407,8 @@
                 this.currentNav = nav;
             },
             handleCurrentChange(value) {
-                console.log(value)
-                console.log(this.$route)
+              this.currentPage = value;
+              this.initData();
             }
         },
     }

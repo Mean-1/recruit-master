@@ -35,4 +35,6 @@ export const HEADER_TABLE_MAJOR = "所学专业";
 export const INTERESTED = "感兴趣";
 export const INTERVIEW_INVITATION = "面试邀请";
 export const INAPPROPRIATE = "不合适";
+export const DONE = "已结束";
+
 

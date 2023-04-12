@@ -10,7 +10,7 @@
             <el-button type="text" icon="el-icon-edit" class="edit"
                        @click="toggleEdit('editEducation',education, educationForm)">编辑</el-button>
             <el-button type="text" icon="el-icon-delete-solid" class="remove"
-                       @click="remove(education)">删除</el-button>
+                       @click="remove(education.education_id)">删除</el-button>
             <img v-if="$store.state.onlyReadResume" class="icon"
                  :src="require('@/image/illustration/el-icon-school.png')"
                  style="width: 45px; height: 45px; float: left" />
@@ -136,35 +136,35 @@
         },
         data() {
             return {
-                educationList: [],
-                // educationList: [
-                //     {
-                //         education_id: "",
-                //         school_name: "清华大学",
-                //         education: "本科",
-                //         start_date: "2018.09",
-                //         end_date: "2022.06",
-                //         major: "软件工程",
-                //         examination_flag: "N",
-                //         fulltime_flag: "Y",
-                //         honor: "国家奖学金、国家励志奖学金、红棉奖学金一等（学业优秀）、英语四六级",
-                //         certificate: "软考中级软件设计师、软考中级数据库系统工程师",
-                //         attached_info: ""
-                //     },
-                //     {
-                //         education_id: "",
-                //         school_name: "北京大学",
-                //         education: "硕士",
-                //         start_date: "2022.09",
-                //         end_date: "2025.06",
-                //         major: "电子信息工程",
-                //         examination_flag: "Y",
-                //         fulltime_flag: "N",
-                //         honor: "",
-                //         certificate: "",
-                //         attached_info: "在XXX导师带领下完成SCI论文并发表至XXX网站"
-                //     }
-                // ],
+                // educationList: [],
+                educationList: [
+                    {
+                        education_id: "",
+                        school_name: "清华大学",
+                        education: "本科",
+                        start_date: "2018.09",
+                        end_date: "2022.06",
+                        major: "软件工程",
+                        examination_flag: "N",
+                        fulltime_flag: "Y",
+                        honor: "国家奖学金、国家励志奖学金、红棉奖学金一等（学业优秀）、英语四六级",
+                        certificate: "软考中级软件设计师、软考中级数据库系统工程师",
+                        attached_info: ""
+                    },
+                    {
+                        education_id: "",
+                        school_name: "北京大学",
+                        education: "硕士",
+                        start_date: "2022.09",
+                        end_date: "2025.06",
+                        major: "电子信息工程",
+                        examination_flag: "Y",
+                        fulltime_flag: "N",
+                        honor: "",
+                        certificate: "",
+                        attached_info: "在XXX导师带领下完成SCI论文并发表至XXX网站"
+                    }
+                ],
                 educationForm: {
                     education_id: "",
                     resume_id: this.resume_id,
@@ -209,12 +209,12 @@
         methods: {
             async initData() {
                 const res = await this.$axios.request({
-                    url: `/education/list/${this.resume_id}`,
+                    url: `/resume-education/getEducationByResumeId/${this.resume_id}`,
                     method: "get",
                 });
                 console.log(res);
-                if(res.msg === 'success'){
-                    this.educationList = Object.assign([],[],res.data.educationList);
+                if(res.message == 'success'){
+                    this.educationList = Object.assign([],[],res.obj);
                 }
                 // 获取完数据告知父组件已更新完毕,用于预览简历的异步通知
                 this.$emit("updatePart:resume", 1)
@@ -246,9 +246,8 @@
             // 教育经历删除
             async remove(education) {
                 const res = await this.$axios.request({
-                    url: `/education/delete`,
-                    method: "delete",
-                    data: education
+                    url: `/resume-education/deleteById/${education}`,
+                    method: "delete"
                 })
                 console.log(res);
                 this.initData();
@@ -258,12 +257,12 @@
                 this.$refs[formName].validate(async (valid) => {
                     if (valid) {
                         const res = await this.$axios.request({
-                            url: `/education/saveOrUpdate`,
+                            url: `/resume-education/saveOrUpdate`,
                             method: "post",
                             data: this.educationForm
                         });
                         console.log(res);
-                        if(res.msg === 'success'){
+                        if(res.message === 'success'){
                             this.initData();
                         }
                         this.$message.success("保存成功");

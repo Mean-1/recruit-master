@@ -412,6 +412,7 @@ export default {
             console.log(res);
             // if(res.msg === 'success'){
                 res.data.forEach(item => {
+                    item.job_id = item.id;
                     item.job_duty = item.name;
                     item.job_salary = item.salary;
                     item.office_city = item.company.address;
