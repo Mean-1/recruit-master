@@ -45,13 +45,21 @@
             </el-input>
             <el-button type="primary" @click="editOpen('passwordDialogVisible')">修改密码</el-button>
           </div>
+<!--          <div class="setting-wrapper">-->
+<!--            <div class="setting-name">微信号码</div>-->
+<!--            <el-input-->
+<!--                  v-model="loginForm.applicant_wechat"-->
+<!--                  :disabled="true">-->
+<!--            </el-input>-->
+<!--            <el-button type="primary" @click="editOpen('wechatDialogVisible')">更换微信</el-button>-->
+<!--          </div>-->
           <div class="setting-wrapper">
-            <div class="setting-name">微信号码</div>
+            <div class="setting-name">用户名</div>
             <el-input
-                  v-model="loginForm.applicant_wechat"
-                  :disabled="true">
+                v-model="loginForm.username"
+                :disabled="true">
             </el-input>
-            <el-button type="primary" @click="editOpen('wechatDialogVisible')">更换微信</el-button>
+            <el-button type="primary" @click="editOpen('usernameDialogVisible')">更换用户名</el-button>
           </div>
           <div class="setting-wrapper">
             <div class="setting-name">绑定邮箱</div>
@@ -112,25 +120,49 @@
       </span>
     </el-dialog>
     <!-- 换绑微信 -->
+<!--    <el-dialog-->
+<!--          :close-on-click-modal="false"-->
+<!--          title="微信绑定"-->
+<!--          :visible.sync="wechatDialogVisible"-->
+<!--          width="30%">-->
+<!--      <el-form :model="wechatForm" :rules="wechatRules" ref="wechatForm" label-width="84px">-->
+<!--        <el-form-item label="登录手机" prop="login_phone">-->
+<!--          <el-input placeholder="请输入当前登录手机号码" v-model="wechatForm.login_phone"></el-input>-->
+<!--        </el-form-item>-->
+<!--        <el-form-item label="密码验证" prop="password" v-if="loginForm.password">-->
+<!--          <el-input placeholder="请输入当前账号登录密码" v-model="wechatForm.password"></el-input>-->
+<!--        </el-form-item>-->
+<!--        <el-form-item label="新的微信" prop="newWechat">-->
+<!--          <el-input placeholder="请输入新的微信号" v-model="wechatForm.newWechat"></el-input>-->
+<!--        </el-form-item>-->
+<!--      </el-form>-->
+<!--      <span slot="footer" class="dialog-footer">-->
+<!--        <el-button @click="resetForm('wechatForm','wechatDialogVisible')">取 消</el-button>-->
+<!--        <el-button type="primary" @click="submitForm('wechatForm','wechatDialogVisible')">确 定</el-button>-->
+<!--      </span>-->
+<!--    </el-dialog>-->
+
+
+    <!-- 更改用户名 -->
     <el-dialog
-          :close-on-click-modal="false"
-          title="微信绑定"
-          :visible.sync="wechatDialogVisible"
-          width="30%">
-      <el-form :model="wechatForm" :rules="wechatRules" ref="wechatForm" label-width="84px">
+        :close-on-click-modal="false"
+        title="更改用户名"
+        :visible.sync="usernameDialogVisible"
+        width="30%">
+      <el-form :model="usernameForm" :rules="usernameRules" ref="usernameForm" label-width="84px">
         <el-form-item label="登录手机" prop="login_phone">
-          <el-input placeholder="请输入当前登录手机号码" v-model="wechatForm.login_phone"></el-input>
+          <el-input placeholder="请输入当前登录手机号码" v-model="usernameForm.login_phone"></el-input>
         </el-form-item>
         <el-form-item label="密码验证" prop="password" v-if="loginForm.password">
-          <el-input placeholder="请输入当前账号登录密码" v-model="wechatForm.password"></el-input>
+          <el-input placeholder="请输入当前账号登录密码" v-model="usernameForm.password"></el-input>
         </el-form-item>
-        <el-form-item label="新的微信" prop="newWechat">
-          <el-input placeholder="请输入新的微信号" v-model="wechatForm.newWechat"></el-input>
+        <el-form-item label="新的用户名" prop="newUsername">
+          <el-input placeholder="请输入新的用户名" v-model="usernameForm.newUsername"></el-input>
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
-        <el-button @click="resetForm('wechatForm','wechatDialogVisible')">取 消</el-button>
-        <el-button type="primary" @click="submitForm('wechatForm','wechatDialogVisible')">确 定</el-button>
+        <el-button @click="resetForm('usernameForm','usernameDialogVisible')">取 消</el-button>
+        <el-button type="primary" @click="submitForm('usernameForm','usernameDialogVisible')">确 定</el-button>
       </span>
     </el-dialog>
     <!-- 换绑邮箱 -->
@@ -235,23 +267,23 @@
                     { icon: "el-icon-gerenzhongxin", name: "个人中心", href: "/applicant"},
                     { icon: "el-icon-jianli", name: "我的简历", href: "/applicant/resume"},
                     { icon: "el-icon-toudi", name: "投递职位", href: "/applicant/apply"},
-                    { icon: "el-icon-mianshi", name: "我的面试", href: "/applicant/interview"},
+                    // { icon: "el-icon-mianshi", name: "我的面试", href: "/applicant/interview"},
                     { icon: "el-icon-shoucang", name: "职位收藏", href: "/applicant/collect"},
-                    { icon: "el-icon-xiaoxi", name: "我的消息", href: "/applicant/message"},
+                    // { icon: "el-icon-xiaoxi", name: "我的消息", href: "/applicant/message"},
                     { icon: "el-icon-shezhi", name: "账号设置", href: "/applicant/setting"}
                 ],
                 currentMenu: "账号设置",
-                loginForm: {},
-                /*loginForm: {
-                    login_phone: "13522342234",
+                // loginForm: {},
+                loginForm: {
+                    login_phone: JSON.parse(window.sessionStorage.getItem('user')).phone,
                     password: "12345678",
-                    applicant_wechat: "Homeuh",
-                    applicant_email: "850609866@qq.com"
-                },*/
+                    username: "",
+                    applicant_email: ""
+                },
                 
                 // 更换手机
                 phoneForm: {
-                    login_phone: "",
+                    login_phone: JSON.parse(window.sessionStorage.getItem('user')).phone,
                     password: "",
                     newPhone: "",
                 },
@@ -260,7 +292,7 @@
                         { required: true, validator: checkPhone, blur: ['blur','change']}
                     ],
                     password: [
-                        { required: true, validator: checkPassword, blur: ['blur','change']}
+                        { required: true,  blur: ['blur','change']}
                     ],
                     newPhone: [
                         { required: true, validator: checkNewPhone, blur: 'blur'}
@@ -276,7 +308,7 @@
                 },
                 passwordRules: {
                     password: [
-                        { required: true, validator: checkPassword, blur: ['blur','change']}
+                        { required: true,  blur: ['blur','change']}
                     ],
                     newPassword: [
                         { required: true, validator: checkNewPassword, blur: ['blur','change']}
@@ -304,11 +336,31 @@
                         { required: true, message: "新的微信号不能为空", blur: ['blur','change']}
                     ],
                 },
-                wechatDialogVisible: false,
-                
+
+                // 更新用户名
+                usernameForm: {
+                  login_phone: JSON.parse(window.sessionStorage.getItem('user')).phone,
+                  password: "",
+                  newUsername: ""
+                },
+                usernameRules: {
+                  login_phone: [
+                    { required: true, validator: checkPhone, blur: ['blur','change']}
+                  ],
+                  password: [
+                    { required: true, blur: ['blur','change']}
+                  ],
+                  newUsername: [
+                    { required: true, blur: ['blur','change']}
+                  ],
+                },
+                usernameDialogVisible: false,
+
+
+
                 // 换绑邮箱
                 emailForm: {
-                    login_phone: "",
+                    login_phone: JSON.parse(window.sessionStorage.getItem('user')).phone,
                     password: "",
                     newEmail: ""
                 },
@@ -317,7 +369,7 @@
                         { required: true, validator: checkPhone, blur: ['blur','change']}
                     ],
                     password: [
-                        { required: true, validator: checkPassword, blur: ['blur','change']}
+                        { required: true, blur: ['blur','change']}
                     ],
                     newEmail: [
                         { required: true, validator: checkEmail, blur: ['blur','change']}
@@ -333,63 +385,92 @@
         methods: {
             async initData() {
                 const res = await this.$axios.request({
-                    url: "/applicant/setting/" + this.$store.state.login_id,
+                    url: "/users/getUserInfoByuid/" + JSON.parse(window.sessionStorage.getItem('user')).id,
                     method: "get"
                 })
                 console.log(res)
-                if (res.msg === "success") {
-                    this.loginForm = Object.assign({},{},res.data.loginForm);
+                if (res.message === "success") {
+                  res.obj.login_phone=res.obj.phone;
+                  res.obj.applicant_email = res.obj.email;
+                    this.loginForm = Object.assign({},{},res.obj);
                 }
             },
             async postForm(formName) {
                 let res;
                 switch(formName){
                     case "phoneForm":
-                        res = await this.$axios.request({
-                            url: "/login/updatePhone",
+                      console.log(JSON.parse(window.sessionStorage.getItem('user')).id)
+                      res = await this.$axios.request({
+                            url: "/users/updatePhone",
                             method: "post",
-                            data: {
-                                login_id: this.$store.state.login_id,
-                                newPhone: this[formName].newPhone
+                            params: {
+                              id: JSON.parse(window.sessionStorage.getItem('user')).id,
+                              oldPassword:this[formName].password,
+                              newPhone: this[formName].newPhone
                             }
                         });
                         console.log(res);
+                        if(res.message=="success"){
+                          this.$message.success("更换成功");
+                        }else {
+                          this.$message.error(res.message);
+                        }
                         await this.initData();
                         break;
                     case "passwordForm":
                         res = await this.$axios.request({
-                            url: "/login/updatePass",
+                            url: "/users/updatePassword",
                             method: "post",
-                            data: {
-                                login_id: this.$store.state.login_id,
-                                newPass: this[formName].newPassword
+                            params: {
+                              id: JSON.parse(window.sessionStorage.getItem('user')).id,
+                              oldPassword: this[formName].password,
+                              newPassword: this[formName].newPassword
                             }
                         });
                         console.log(res);
+                        if(res.message=="success"){
+                          this.$message.success("更换成功");
+                        }else {
+                          this.$message.error(res.message);
+                        }
                         await this.initData();
                         break;
-                    case "wechatForm":
+                    case "usernameForm":
                         res = await this.$axios.request({
-                            url: "/applicant/updateWechat",
+                            url: "/users/updateUsername",
                             method: "post",
-                            data: {
-                                login_id: this.$store.state.login_id,
-                                newWechat: this[formName].newWechat
+                            params: {
+                              id: JSON.parse(window.sessionStorage.getItem('user')).id,
+                              oldPassword: this[formName].password,
+                              newUsername: this[formName].newUsername
                             }
                         });
                         console.log(res);
-                        await this.initData();
+                        if(res.message=="success"){
+                          this.$message.success("更换成功,请重新登录");
+                          this.$router.push("/home");
+                          this.$store.commit('removeLogin');
+                          this.$store.commit('setLogin');
+                        }else {
+                          this.$message.error(res.message);
+                        }
                         break;
                     case "emailForm":
                         res = await this.$axios.request({
-                            url: "/applicant/updateEmail",
+                            url: "/users/updateEmail",
                             method: "post",
-                            data: {
-                                login_id: this.$store.state.login_id,
-                                newEmail: this[formName].newEmail
+                            params: {
+                              id: JSON.parse(window.sessionStorage.getItem('user')).id,
+                              oldPassword: this[formName].password,
+                              newEmail: this[formName].newEmail
                             }
                         });
                         console.log(res);
+                        if(res.message=="success"){
+                          this.$message.success("更换成功");
+                        }else {
+                          this.$message.error(res.message);
+                        }
                         await this.initData();
                         break;
                 }
@@ -411,10 +492,11 @@
             },
             // 提交表单
             submitForm(formName, editDialog) {
+              console.log(formName)
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
                         this.postForm(formName);
-                        this.$message.success("更换成功");
+                        // this.$message.success("更换成功");
                         this.resetForm(formName, editDialog);
                     } else {
                         this.$message.error("更换失败");

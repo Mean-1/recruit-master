@@ -16,57 +16,57 @@
         </aside>
         <div class="main-content">
           <!-- 近期面试 -->
-          <div class="recent-interview">
-            <h2>
-              <span>近期面试</span>
-              <span>（共{{ interview_num }}场）</span>
-              <el-link href="/applicant/interview">查看更多<i class="el-icon-arrow-right"></i></el-link>
-            </h2>
-            <div class="content" v-if="interviewList.length === 0">
-              <el-empty :image-size="200"></el-empty>
-            </div>
-            <div class="content" v-else>
-              <el-timeline>
-                <el-timeline-item
-                  v-for="(interview,index) in interviewList"
-                  :key="interview.company_name + index"
-                  icon="el-icon-yuanhuan"
-                  :timestamp="interview.interview_date"
-                  hide-timestamp
-                >
-                  <div class="timeStamp">
-                    <div class="date">{{ splitTimeStamp(interview.interview_date)[0] }}</div>
-                    <div class="time">{{ splitTimeStamp(interview.interview_date)[1] }}</div>
-                  </div>
-                  <div class="interview-wrapper">
-                    <el-link href="/company/detail" class="company-logo">
-                      <img :src="interview.company_logo" :alt="interview.company_name"
-                           style="width: 60px; height: 60px;"/>
-                    </el-link>
-                    <div class="interview-content">
-                      <div class="interview-job">
-                        <el-link href="/company/detail" class="company" :title="interview.company_name">{{ interview.company_name }}</el-link>
-                        <el-link href="/profession/detail" class="job-info" >
-                          <span>应聘：</span>
-                          <span :title="interview.job_duty">{{ interview.job_duty }}</span>
-                          <span>{{ interview.job_salary }}</span>
-                        </el-link>
-                      </div>
-                      <div class="office-address">
-                        <i class="el-icon-location"></i>
-                        <span>{{ interview.office_address }}</span>
-                      </div>
-                    </div>
-                  </div>
-                </el-timeline-item>
-              </el-timeline>
-            </div>
-          </div>
+<!--          <div class="recent-interview">-->
+<!--            <h2>-->
+<!--              <span>近期面试</span>-->
+<!--              <span>（共{{ interview_num }}场）</span>-->
+<!--              <el-link href="/applicant/interview">查看更多<i class="el-icon-arrow-right"></i></el-link>-->
+<!--            </h2>-->
+<!--            <div class="content" v-if="interviewList.length === 0">-->
+<!--              <el-empty :image-size="200"></el-empty>-->
+<!--            </div>-->
+<!--            <div class="content" v-else>-->
+<!--              <el-timeline>-->
+<!--                <el-timeline-item-->
+<!--                  v-for="(interview,index) in interviewList"-->
+<!--                  :key="interview.company_name + index"-->
+<!--                  icon="el-icon-yuanhuan"-->
+<!--                  :timestamp="interview.interview_date"-->
+<!--                  hide-timestamp-->
+<!--                >-->
+<!--                  <div class="timeStamp">-->
+<!--                    <div class="date">{{ splitTimeStamp(interview.interview_date)[0] }}</div>-->
+<!--                    <div class="time">{{ splitTimeStamp(interview.interview_date)[1] }}</div>-->
+<!--                  </div>-->
+<!--                  <div class="interview-wrapper">-->
+<!--                    <el-link href="/company/detail" class="company-logo">-->
+<!--                      <img :src="interview.company_logo" :alt="interview.company_name"-->
+<!--                           style="width: 60px; height: 60px;"/>-->
+<!--                    </el-link>-->
+<!--                    <div class="interview-content">-->
+<!--                      <div class="interview-job">-->
+<!--                        <el-link href="/company/detail" class="company" :title="interview.company_name">{{ interview.company_name }}</el-link>-->
+<!--                        <el-link href="/profession/detail" class="job-info" >-->
+<!--                          <span>应聘：</span>-->
+<!--                          <span :title="interview.job_duty">{{ interview.job_duty }}</span>-->
+<!--                          <span>{{ interview.job_salary }}</span>-->
+<!--                        </el-link>-->
+<!--                      </div>-->
+<!--                      <div class="office-address">-->
+<!--                        <i class="el-icon-location"></i>-->
+<!--                        <span>{{ interview.office_address }}</span>-->
+<!--                      </div>-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                </el-timeline-item>-->
+<!--              </el-timeline>-->
+<!--            </div>-->
+<!--          </div>-->
           <!-- 近期投递 -->
           <div class="recent-apply">
             <h2>
               <span>近期投递</span>
-              <span>（共{{ apply_num }}份）</span>
+<!--              <span>（共{{ apply_num }}份）</span>-->
               <el-link href="/applicant/apply">查看更多<i class="el-icon-arrow-right"></i></el-link>
             </h2>
             <div class="content" v-if="applyList.length === 0">
@@ -106,12 +106,12 @@
                   </div>
                   <div class="apply-status">
                     <span>投递时间：{{ apply.create_date }}</span>
-                    <span v-if="apply.apply_status === '0'" style="color: #F56C6C">简历不合适</span>
-                    <span v-else-if="apply.apply_status === '1'" style="color: #8d92a1">简历投递中~</span>
-                    <span v-else-if="apply.apply_status === '2'" style="color: #00c2b3">简历被查看</span>
-                    <span v-else-if="apply.apply_status === '3'" style="color: #E6A23C">公司感兴趣</span>
-                    <span v-else-if="apply.apply_status === '4'" style="color: #00c2b3">收到面试邀请~</span>
-                    <span v-else-if="apply.apply_status === '5'" style="color: #8d92a1">面试已结束</span>
+                    <span v-if="apply.apply_status === '2'" style="color: #F56C6C">简历不合适</span>
+                    <span v-else-if="apply.apply_status === '0'" style="color: #8d92a1">简历投递中~</span>
+<!--                    <span v-else-if="apply.apply_status === '2'" style="color: #00c2b3">简历被查看</span>-->
+<!--                    <span v-else-if="apply.apply_status === '3'" style="color: #E6A23C">公司感兴趣</span>-->
+                    <span v-else-if="apply.apply_status === '1'" style="color: #00c2b3">收到面试邀请~</span>
+                    <span v-else-if="apply.apply_status === '3'" style="color: #8d92a1">面试已结束</span>
                   </div>
                 </li>
               </ul>
@@ -207,9 +207,9 @@ export default {
                 { icon: "el-icon-gerenzhongxin", name: "个人中心", href: "/applicant"},
                 { icon: "el-icon-jianli", name: "我的简历", href: "/applicant/resume"},
                 { icon: "el-icon-toudi", name: "投递职位", href: "/applicant/apply"},
-                { icon: "el-icon-mianshi", name: "我的面试", href: "/applicant/interview"},
+                // { icon: "el-icon-mianshi", name: "我的面试", href: "/applicant/interview"},
                 { icon: "el-icon-shoucang", name: "职位收藏", href: "/applicant/collect"},
-                { icon: "el-icon-xiaoxi", name: "我的消息", href: "/applicant/message"},
+                // { icon: "el-icon-xiaoxi", name: "我的消息", href: "/applicant/message"},
                 { icon: "el-icon-shezhi", name: "账号设置", href: "/applicant/setting"}
             ],
             currentMenu: "个人中心",
@@ -241,8 +241,10 @@ export default {
                 }
             ],
             apply_num: 17,
-            /*applyList: [
+            applyList: [
                 {
+                    job_id:"",
+                    comapny_id:"",
                     job_duty: "前端开发工程师",
                     job_salary: "12-24K·14薪",
                     office_city: "深圳",
@@ -326,29 +328,30 @@ export default {
                     create_date: "2022-3-21 18:45",
                     apply_status: 5
                 }
-            ],*/
-            /*applicant: {
+            ],
+            applicant: {
+              applicant_id:"",
                 applicant_avatar: require("@/image/avatar/applicant_zhang.png"),
                 applicant_name: "张三",
                 applicant_sex: "男",
                 applicant_age: "22",
                 working_year: "1年",
                 education: "本科",
-                resume_percent: 100,
-            },*/
-            /*jobIntention: {
+                // resume_percent: 100,
+            },
+            jobIntention: {
                 intention_duty: "前端工程师",
                 intention_type: "全职",
                 intention_city: "深圳",
-                min_salary: 8,
-                max_salary: 14,
+                min_salary: "8",
+                max_salary: "14",
                 arrive_date: "2周内"
-            },*/
+            },
             // interviewList: [],
             // apply_num: 0,
-            applyList: [],
-            applicant: {},
-            jobIntention: {},
+            // applyList: [],
+            // applicant: {},
+            // jobIntention: {},
             previewVisible: false,
         }
     },
@@ -371,37 +374,69 @@ export default {
             // };
             let getApplyList = async () => {
                 const res = await this.$axios.request({
-                    url: `/apply/list/${this.$store.state.login_id}`,
+                    url: `/user-job-applycation/getLittleApplyJobInfo/${JSON.parse(window.sessionStorage.getItem('user')).id}`,
                     method: "get",
                 });
                 console.log(res);
-                if(res.msg === 'success'){
-                    res.data.applyList.forEach(item => {
-                        item.company_logo = require("@/image/company/" + item.company_logo);
+                if(res.message === 'success'){
+                    res.obj.forEach(item => {
+                        item.company_id = item.company.id;
+                        item.job_id = item.job.id;
+                        item.company_logo = require("@/image/company/" + item.company.icon);
+                        item.job_duty = item.job.name;
+                        item.job_salary = item.job.salary;
+                        item.office_city = item.company.address;
+                        item.job_year = item.job.experience;
+                        item.education = item.job.qualification;
+                        item.comapny_name = item.company.name;
+                        item.company_tag = item.company.tag;
+                        item.company_type = item.company.type;
+                        item.company_size = item.company.size;
+                        item.apply_status = item.state;
                     })
-                    this.apply_num = res.data.apply_num;
-                    this.applyList = Object.assign([],[],res.data.applyList);
+                    // this.apply_num = res.data.apply_num;
+                    this.applyList = Object.assign([],[],res.obj);
                 }
             };
             let getApplicant = async () => {
+                //获取resume的id
                 const res = await this.$axios.request({
-                    url: `/applicant/info/${this.$store.state.login_id}`,
+                    url: `/user-resume/getRidByUid/${JSON.parse(window.sessionStorage.getItem('user')).id}`,
                     method: "get",
                 });
                 console.log(res);
-                if(res.msg === 'success'){
-                    res.data.applicant.applicant_avatar = require( "@/image/avatar/" + res.data.applicant.applicant_avatar);
-                    this.applicant = Object.assign({},{},res.data.applicant);
+
+
+                const res1 = await this.$axios.request({
+                  url: `/resume-baseinfo/getBaseInfoByResumeId/${res}`,
+                  method: "get",
+                });
+              console.log(res1);
+                if(res1.message === 'success'){
+                    res1.obj.education = res1.obj.applicant_education;
+                    res1.obj.applicant_id = res1.obj.resume_id;
+                    res1.obj.resume_percent =100;
+                  res1.obj.applicant_avatar = require("@/image/avatar/" + res1.obj.applicant_avatar);
+
+                  this.applicant = Object.assign({},{},res1.obj)
                 }
             };
             let getJobIntention = async () => {
-                const res = await this.$axios.request({
-                    url: `/job-intention/info/${this.$store.state.login_id}`,
-                    method: "get",
-                });
-                console.log(res);
-                if(res.msg === 'success'){
-                    this.jobIntention = Object.assign({},{},res.data.jobIntention);
+              //获取resume的id
+              const res = await this.$axios.request({
+                url: `/user-resume/getRidByUid/${JSON.parse(window.sessionStorage.getItem('user')).id}`,
+                method: "get",
+              });
+              console.log(res);
+
+
+              const res1 = await this.$axios.request({
+                url: `/resume-intention/getOneIntentionByResumeId/${res}`,
+                method: "get",
+              });
+              console.log(res1)
+                if(res1.message === 'success'){
+                    this.jobIntention = Object.assign({},{},res1.obj);
                 }
             };
             this.$axios.all([getApplyList(),getApplicant(),getJobIntention()]);

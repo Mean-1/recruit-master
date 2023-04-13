@@ -47,9 +47,9 @@
                     { icon: "el-icon-gerenzhongxin", name: "个人中心", href: "/applicant"},
                     { icon: "el-icon-jianli", name: "我的简历", href: "/applicant/resume"},
                     { icon: "el-icon-toudi", name: "投递职位", href: "/applicant/apply"},
-                    { icon: "el-icon-mianshi", name: "我的面试", href: "/applicant/interview"},
+                    // { icon: "el-icon-mianshi", name: "我的面试", href: "/applicant/interview"},
                     { icon: "el-icon-shoucang", name: "职位收藏", href: "/applicant/collect"},
-                    { icon: "el-icon-xiaoxi", name: "我的消息", href: "/applicant/message"},
+                    // { icon: "el-icon-xiaoxi", name: "我的消息", href: "/applicant/message"},
                     { icon: "el-icon-shezhi", name: "账号设置", href: "/applicant/setting"}
                 ],
                 currentMenu: "我的简历",
