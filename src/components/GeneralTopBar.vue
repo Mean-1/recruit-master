@@ -68,8 +68,8 @@
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item><el-link @click="redirect('/recruiter')">工作台</el-link></el-dropdown-item>
               <el-dropdown-item><el-link @click="redirect('/recruiter/job')">职位管理</el-link></el-dropdown-item>
-              <el-dropdown-item><el-link @click="redirect('/recruiter/resume')">简历处理</el-link></el-dropdown-item>
-              <el-dropdown-item><el-link @click="redirect('/recruiter/interview')">面试相关</el-link></el-dropdown-item>
+<!--              <el-dropdown-item><el-link @click="redirect('/recruiter/resume')">简历处理</el-link></el-dropdown-item>-->
+<!--              <el-dropdown-item><el-link @click="redirect('/recruiter/interview')">面试相关</el-link></el-dropdown-item>-->
               <el-dropdown-item><el-link @click="redirect('/recruiter/setting')">账号设置</el-link></el-dropdown-item>
               <el-dropdown-item><el-link @click="reloadStatus">退出登录</el-link></el-dropdown-item>
             </el-dropdown-menu>

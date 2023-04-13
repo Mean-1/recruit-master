@@ -8,37 +8,37 @@
         <div class="inner-wrapper">
           <!-- 底部左侧管理员 -->
           <div class="user-feedback">
-            <p>合作请咨询管理员</p>
-            <img :src="require('@/image/admin.jpg')" style="width: 200px; height: 200px; object-fit: cover"/>
+<!--            <p>合作请咨询管理员</p>-->
+<!--            <img :src="require('@/image/admin.jpg')" style="width: 200px; height: 200px; object-fit: cover"/>-->
           </div>
           <!-- 企业服务 -->
           <div class="company-service">
-            <h3>企业服务</h3>
-            <div class="company-service-link">
-              <el-link>招聘必备法典</el-link>
-              <el-link>公司搜索</el-link>
-              <el-link>万优APP</el-link>
-            </div>
+<!--            <h3>企业服务</h3>-->
+<!--            <div class="company-service-link">-->
+<!--              <el-link>招聘必备法典</el-link>-->
+<!--              <el-link>公司搜索</el-link>-->
+<!--              <el-link>万优APP</el-link>-->
+<!--            </div>-->
           </div>
           <!-- 使用与帮助 -->
           <div class="usage-help">
-            <h3>使用与帮助</h3>
-            <div class="usage-help-link">
-              <el-link>用户协议</el-link>
-              <el-link>个人隐私政策</el-link>
-              <el-link>防骗指南</el-link>
-              <el-link>使用帮助</el-link>
-            </div>
+<!--            <h3>使用与帮助</h3>-->
+<!--            <div class="usage-help-link">-->
+<!--              <el-link>用户协议</el-link>-->
+<!--              <el-link>个人隐私政策</el-link>-->
+<!--              <el-link>防骗指南</el-link>-->
+<!--              <el-link>使用帮助</el-link>-->
+<!--            </div>-->
           </div>
           <!-- 联系方式 -->
           <div class="contact-info">
-            <h3>万家优聘</h3>
-            <div class="contact-info-link">
-              <p>服务热线：400 280 2800</p>
-              <p>举报热线：400 820 8200</p>
-              <p>企业邮箱：850609866@qq.com</p>
-              <p>联系我们</p>
-            </div>
+<!--            <h3>万家优聘</h3>-->
+<!--            <div class="contact-info-link">-->
+<!--              <p>服务热线：400 280 2800</p>-->
+<!--              <p>举报热线：400 820 8200</p>-->
+<!--              <p>企业邮箱：850609866@qq.com</p>-->
+<!--              <p>联系我们</p>-->
+<!--            </div>-->
           </div>
         </div>
       </div>

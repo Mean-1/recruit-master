@@ -7,14 +7,14 @@
     <main class="margin-20per">
       <!-- 搜索框 -->
       <div class="search-form margin-10per">
-        <el-input placeholder="搜索职位、公司" v-model="searchKey" class="search-input">
-          <el-button slot="append" type="primary" icon="el-icon-search"></el-button>
-        </el-input>
+<!--        <el-input placeholder="搜索职位、公司" v-model="searchKey" class="search-input">-->
+<!--          <el-button slot="append" type="primary" icon="el-icon-search"></el-button>-->
+<!--        </el-input>-->
         <div class="search-hot">
-          <b>热搜职位：</b>
-          <el-link v-for="(hot,index) in hotWords" :key="hot + index">
-            {{ hot }}
-          </el-link>
+<!--          <b>热搜职位：</b>-->
+<!--          <el-link v-for="(hot,index) in hotWords" :key="hot + index">-->
+<!--            {{ hot }}-->
+<!--          </el-link>-->
         </div>
       </div>
       <!-- 首页职位侧栏 及 轮播栏 -->

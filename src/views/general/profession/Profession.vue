@@ -61,7 +61,7 @@
             </div>
             <!-- 浏览职位记录 -->
             <div class="history-job">
-              <div class="history-job-label">浏览过的职位</div>
+<!--              <div class="history-job-label">浏览过的职位</div>-->
               <ul>
                 <li v-for="(histJob,histJobIndex) in historyJobList" :key="histJob.name + histJobIndex">
                   <el-link>

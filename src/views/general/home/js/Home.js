@@ -399,15 +399,17 @@ const methods = {
         };
         let getHotCompany = async () => {
             const res = await this.$axios.request({
-                url: "/company/list",
+                url: "/company/getCompany",
                 method: "get"
             });
             console.log(res);
-            if(res.msg === 'success'){
-                res.data.forEach(item => {
+            if(res.message === 'success'){
+                res.obj.forEach(item => {
+                    item.company_id = item.id;
+                    item.recruit = item.nums;
                     item.icon = require("@/image/company/" + item.icon);
                 });
-                this.hotCompany = Object.assign([], this.hotCompany, res.data);
+                this.hotCompany = Object.assign([],[], res.obj);
             }
         };
         this.$axios.all([getHotJob(), getHotCompany()])
