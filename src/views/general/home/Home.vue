@@ -94,16 +94,16 @@
               </div>
               <div class="company-recruit">
                 <el-link :href="'/company/evaluation?company_id=' + company.company_id" class="job-link">
-                  <p>{{ company.userComment }}</p>
-                  <p>面试评价</p>
+<!--                  <p>{{ company.userComment }}</p>-->
+<!--                  <p>面试评价</p>-->
                 </el-link>
                 <el-link :href="'/company/job?company_id=' + company.company_id" class="job-link">
                   <p>{{ company.recruit }}</p>
                   <p>在招职位</p>
                 </el-link>
                 <el-link :href="'/company/detail?company_id=' + company.company_id" class="job-link">
-                  <p>{{ company.activity }}%</p>
-                  <p>简历处理率</p>
+<!--                  <p>{{ company.activity }}%</p>-->
+<!--                  <p>简历处理率</p>-->
                 </el-link>
               </div>
             </div>

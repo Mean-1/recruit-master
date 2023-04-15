@@ -286,50 +286,50 @@ const data = function () {
 
         hotJob: [
             {
-                name: "前端工程师", experience: "1年以内", qualification: "本科",salary: "10-15K",
+                job_id:"",company_id:"",name: "前端工程师", experience: "1年以内", qualification: "本科",salary: "10-15K",
                 tag: ["JavaScript","Vue","React"],companyIcon: require("@/image/company/xunlei.jpg"),
                 companyName: "迅雷网络", companyTag: "移动互联网", companySize: "1000-5000人", address: "深圳·南山"
             },
-            {
-                name: "Web前端开发工程师", experience: "1年-3年", qualification: "本科",salary: "10-20K·13薪",
-                tag: ["电商平台","旅游 | 出行","Web前端"], companyIcon: require("@/image/company/kelu.jpg"),
-                companyName: "KLOOK 客路旅行", companyTag: "旅游，出行", companySize: "50-100人", address: "深圳·福田"
-            },
-            {
-                name: "前端开发工程师", experience: "经验不限", qualification: "不限",salary: "12-20K",
-                tag: ["医疗 | 保健 | 美容","数据服务 | 咨询","JavaScript"], companyIcon: require("@/image/company/wegene.jpg"),
-                companyName: "微基因 WeGene", companyTag: "移动互联网，医疗", companySize: "50-150人", address: "深圳·车公庙"
-            },
-            {
-                name: "前端开发工程师", experience: "3年以上", qualification: "本科及以上",salary: "15-25K·14薪",
-                tag: ["物联网","智能硬件","Html5"], companyIcon: require("@/image/company/guiqikeji.jpg"),
-                companyName: "瑰琦科技", companyTag: "移动互联网，硬件", companySize: "50人以下", address: "深圳·南山"
-            },
-            {
-                name: "Web前端开发工程师", experience: "1年及以上", qualification: "大专及以上",salary: "5-10K",
-                tag: ["社交媒体","社交平台","web前端开发"], companyIcon: require("@/image/company/yunmai.jpg"),
-                companyName: "云麦网络", companyTag: "MCN | 直播平台", companySize: "15-50人", address: "深圳·南山"
-            },
-            {
-                name: "前端开发工程师", experience: "经验不限", qualification: "本科及以上",salary: "25-40K·15K",
-                tag: ["移动端","小程序","web前端"], companyIcon: require("@/image/company/zijie.jpg"),
-                companyName: "字节跳动", companyTag: "人工智能 | IM通讯", companySize: "5000人以上", address: "深圳·南山"
-            },
-            {
-                name: "前端开发工程师", experience: "经验不限", qualification: "不限",salary: "13-26K",
-                tag: ["软件服务 | 咨询","IT技术服务 | 咨询","React"], companyIcon: require("@/image/company/keruier.jpg"),
-                companyName: "科瑞尔人力资源服务", companyTag: "企业服务", companySize: "2000人以上", address: "深圳·南山"
-            },
-            {
-                name: "前端开发工程师", experience: "2年以上", qualification: "不限",salary: "12-24K·14薪",
-                tag: ["TypeScript","Angular","SAAS"], companyIcon: require("@/image/company/siwei.jpg"),
-                companyName: "思维巡航", companyTag: "软件服务", companySize: "15-50人", address: "深圳·南山"
-            },
-            {
-                name: "中高级前端开发工程师", experience: "经验不限", qualification: "本科",salary: "8-15K",
-                tag: ["JavaScript","React","TypeScript"], companyIcon: require("@/image/company/meituan.jpg"),
-                companyName: "美团", companyTag: "消费生活", companySize: "2000人以上", address: "深圳·南山"
-            },
+            // {
+            //     name: "Web前端开发工程师", experience: "1年-3年", qualification: "本科",salary: "10-20K·13薪",
+            //     tag: ["电商平台","旅游 | 出行","Web前端"], companyIcon: require("@/image/company/kelu.jpg"),
+            //     companyName: "KLOOK 客路旅行", companyTag: "旅游，出行", companySize: "50-100人", address: "深圳·福田"
+            // },
+            // {
+            //     name: "前端开发工程师", experience: "经验不限", qualification: "不限",salary: "12-20K",
+            //     tag: ["医疗 | 保健 | 美容","数据服务 | 咨询","JavaScript"], companyIcon: require("@/image/company/wegene.jpg"),
+            //     companyName: "微基因 WeGene", companyTag: "移动互联网，医疗", companySize: "50-150人", address: "深圳·车公庙"
+            // },
+            // {
+            //     name: "前端开发工程师", experience: "3年以上", qualification: "本科及以上",salary: "15-25K·14薪",
+            //     tag: ["物联网","智能硬件","Html5"], companyIcon: require("@/image/company/guiqikeji.jpg"),
+            //     companyName: "瑰琦科技", companyTag: "移动互联网，硬件", companySize: "50人以下", address: "深圳·南山"
+            // },
+            // {
+            //     name: "Web前端开发工程师", experience: "1年及以上", qualification: "大专及以上",salary: "5-10K",
+            //     tag: ["社交媒体","社交平台","web前端开发"], companyIcon: require("@/image/company/yunmai.jpg"),
+            //     companyName: "云麦网络", companyTag: "MCN | 直播平台", companySize: "15-50人", address: "深圳·南山"
+            // },
+            // {
+            //     name: "前端开发工程师", experience: "经验不限", qualification: "本科及以上",salary: "25-40K·15K",
+            //     tag: ["移动端","小程序","web前端"], companyIcon: require("@/image/company/zijie.jpg"),
+            //     companyName: "字节跳动", companyTag: "人工智能 | IM通讯", companySize: "5000人以上", address: "深圳·南山"
+            // },
+            // {
+            //     name: "前端开发工程师", experience: "经验不限", qualification: "不限",salary: "13-26K",
+            //     tag: ["软件服务 | 咨询","IT技术服务 | 咨询","React"], companyIcon: require("@/image/company/keruier.jpg"),
+            //     companyName: "科瑞尔人力资源服务", companyTag: "企业服务", companySize: "2000人以上", address: "深圳·南山"
+            // },
+            // {
+            //     name: "前端开发工程师", experience: "2年以上", qualification: "不限",salary: "12-24K·14薪",
+            //     tag: ["TypeScript","Angular","SAAS"], companyIcon: require("@/image/company/siwei.jpg"),
+            //     companyName: "思维巡航", companyTag: "软件服务", companySize: "15-50人", address: "深圳·南山"
+            // },
+            // {
+            //     name: "中高级前端开发工程师", experience: "经验不限", qualification: "本科",salary: "8-15K",
+            //     tag: ["JavaScript","React","TypeScript"], companyIcon: require("@/image/company/meituan.jpg"),
+            //     companyName: "美团", companyTag: "消费生活", companySize: "2000人以上", address: "深圳·南山"
+            // },
         ],
         hotCompany: [
             {
@@ -385,6 +385,8 @@ const methods = {
                         // console.log(typeof str)
                         item.companyIcon = require("@/image/company/"+item.company.icon);
                     }
+                    item.job_id = item.id;
+                    item.company_id = item.company.id;
                     item.address=item.company.address;
                     item.companyName=item.company.name;
                     item.companySize=item.company.size;

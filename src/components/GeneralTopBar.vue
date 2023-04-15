@@ -46,7 +46,7 @@
               <el-dropdown-item><el-link @click="redirect('/applicant')">个人中心</el-link></el-dropdown-item>
               <el-dropdown-item><el-link @click="redirect('/applicant/resume')">我的简历</el-link></el-dropdown-item>
               <el-dropdown-item><el-link @click="redirect('/applicant/apply')">投递情况</el-link></el-dropdown-item>
-              <el-dropdown-item><el-link @click="redirect('/applicant/interview')">我的面试</el-link></el-dropdown-item>
+<!--              <el-dropdown-item><el-link @click="redirect('/applicant/interview')">我的面试</el-link></el-dropdown-item>-->
               <el-dropdown-item><el-link @click="redirect('/applicant/collect')">职位收藏</el-link></el-dropdown-item>
               <el-dropdown-item><el-link @click="redirect('/applicant/setting')">账号设置</el-link></el-dropdown-item>
               <el-dropdown-item><el-link @click="reloadStatus">退出登录</el-link></el-dropdown-item>
@@ -149,6 +149,8 @@ export default {
               this.$router.push("/home");
               this.$store.commit('removeLogin');
               this.$store.commit('setLogin');
+            window.location.reload(false);
+
 
           }
       }

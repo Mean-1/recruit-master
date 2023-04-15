@@ -145,7 +145,7 @@ export default {
                 company_name: "迅雷网络",
                 company_logo: require("@/image/company/xunlei.jpg"),
                 company_description: "基于共享经济的互联网云计算平台",
-                company_address: "深圳南山区深圳湾科技生态园12栋B座21-23F",
+                company_address: "",
                 company_tag: "移动互联网",
                 company_type: "上市公司",
                 company_size: "1000-5000人",

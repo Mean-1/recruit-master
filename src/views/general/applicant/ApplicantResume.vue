@@ -62,8 +62,18 @@
                     method: "get",
                 });
                 console.log(res);
+                //如果没有简历，则创建一个新的简历
+                if(0==res){
+                  const res1 = await this.$axios.request({
+                    url: `/user-resume/addUserResume/`+JSON.parse(window.sessionStorage.getItem('user')).id,
+                    method: "get",
+                  });
+                  console.log(res1);
+                  this.applicant_id = res1;
+                }else {
+                  this.applicant_id = res;
+                }
 
-                this.applicant_id = res;
 
             },
             menuSelect(name) {
