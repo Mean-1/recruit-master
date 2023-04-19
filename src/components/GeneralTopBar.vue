@@ -7,7 +7,7 @@
         <!-- 顶部logo -->
         <div class="logo">
           <el-link href="/home">
-            万家优<i class="el-icon-zhaopin2"></i>
+            宝利<i class="el-icon-zhaopin2"></i>
           </el-link>
         </div>
         <!-- 坐标城市 -->

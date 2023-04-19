@@ -334,7 +334,6 @@ export default {
               res.obj.company.company_website = res.obj.company.website;
               res.obj.company.company_logo = require("@/image/company/" + res.obj.company.icon);
               this.company = Object.assign({}, {}, res.obj.company);
-              console.log(JSON.parse(window.sessionStorage.getItem('user')).is_recruit)
             }
 
             //添加相似职位
@@ -377,8 +376,8 @@ export default {
           }
         },
         async collect() {
-          console.log(JSON.parse(window.sessionStorage.getItem('user')).is_recruit)
-            if(!JSON.parse(window.sessionStorage.getItem('user')).is_recruit) return this.$message.error("请先登录");
+          // console.log(JSON.parse(window.sessionStorage.getItem('user')).is_recruit)
+            if(!JSON.parse(window.sessionStorage.getItem('user'))) return this.$message.error("请先登录");
             if(JSON.parse(window.sessionStorage.getItem('user')).is_recruit !== "0") {
               this.$message.error("角色身份不符，请切换为求职者身份！")
             } else {
@@ -422,7 +421,7 @@ export default {
 
         },
         async apply() {
-            if(!JSON.parse(window.sessionStorage.getItem('user')).is_recruit){
+            if(!JSON.parse(window.sessionStorage.getItem('user'))){
                 return this.$message.error("当前状态尚未登录，请先注册登录完善信息！")
             }
             else if(JSON.parse(window.sessionStorage.getItem('user')).is_recruit !== "0") {

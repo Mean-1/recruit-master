@@ -230,8 +230,8 @@ export default {
                     label: "公司规模", options: ["不限","少于15人","15-50人","50-150人","150-500人","500-2000人","2000人以上"]
                 }
             ],
-            // jobList: [],
-            jobList: [
+            jobList: [],
+            /*jobList: [
                 {
                     name: "前端工程师", address: "深圳·南山",
                     salary: "10-15K", experience: "1年以上",
@@ -372,7 +372,7 @@ export default {
             //     {
             //         name: "web前端开发工程师", salary: "8-14K", companyName: "果酱时代"
             //     },
-            ],
+            ],*/
             currentPage: 1,
             pageSize: 10,
             total: 1000,

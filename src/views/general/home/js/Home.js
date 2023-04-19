@@ -268,19 +268,19 @@ const data = function () {
         ],
         bannerImg: [
             {
-                href: "./Login", url: require("@/image/banner/banner1.jpg")
+                href: "https://sz.duoyi.com/home/sz-index.html#/", url: require("@/image/banner/news1.png")
             },
             {
-                href: "", url: require("@/image/banner/banner2.jpg")
+                href: "http://web.4399.com/campus/", url: require("@/image/banner/news2.png")
             },
             {
-                href: "", url: require("@/image/banner/banner3.jpg")
+                href: "https://hr.vivo.com/wt/vivo/web/index/CompvivoAboutCampus", url: require("@/image/banner/news3.png")
             },
             {
-                href: "", url: require("@/image/banner/banner4.jpg")
+                href: "https://www.hotjob.cn/wt/yonyou/web/index?brandCode=1#/", url: require("@/image/banner/news4.png")
             },
             {
-                href: "", url: require("@/image/banner/banner5.jpg")
+                href: "https://jobs.bytedance.com/campus/position?keywords=&category=&location=&project=&type=2&job_hot_flag=&current=1&limit=10&functionCategory=&tag=", url: require("@/image/banner/news5.png")
             },
         ],
 
